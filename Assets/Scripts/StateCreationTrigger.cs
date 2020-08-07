@@ -1,16 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DefaultNamespace
+public class StateCreationTrigger : MonoBehaviour
 {
-    public class StateCreationTrigger : MonoBehaviour
+    private void Update()
     {
-        private void Update()
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                StateCreationEvents.Instance.CreateState();
-            }
+            StateCreationEvents.Instance.CreateState();
         }
     }
 }
