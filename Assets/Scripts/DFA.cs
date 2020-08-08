@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 class DFA : Automata
 {
@@ -14,7 +15,9 @@ class DFA : Automata
 
     protected override void OnAddState()
     {
-        _states.Add(new State());
+        int id = AutomataManager.CurrentStateId;
+        _states.Add(new State(id));
+        Debug.Log("DFA id"+id);
     }
 
     protected override void OnDeleteState()

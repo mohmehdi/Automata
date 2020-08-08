@@ -3,10 +3,12 @@ public class State
 {
     public Status Status { get; private set; }
     private Dictionary<string, State> _states;
-    public State()
+    private int stateID;
+    public State(int id)
     {
         _states = new Dictionary<string, State>();
         Status = Status.NORMAL;
+        stateID = id;
     }
     public void Connect(string label, State s)
     {

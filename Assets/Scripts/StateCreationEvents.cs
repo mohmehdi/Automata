@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using DefaultNamespace;
 using UnityEngine;
 
 public class StateCreationEvents : MonoBehaviour
 {
-    public static StateCreationEvents Instance;
+    public static StateCreationEvents Instance { get; private set; }
 
     public event Action OnStateCreated;
     private void Awake()
@@ -13,9 +14,8 @@ public class StateCreationEvents : MonoBehaviour
     }
     public void CreateState()
     {
-        if (OnStateCreated!=null)
-        {
-            OnStateCreated();
-        }
+        OnStateCreated?.Invoke();
+        AutomataManager.CurrentStateId++;
+        Debug.Log("manager id"+AutomataManager.CurrentStateId);
     }
 }

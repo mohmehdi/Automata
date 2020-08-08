@@ -13,6 +13,6 @@ public class StateCreator : MonoBehaviour
     {
         Vector2 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        Instantiate(statePrefab, mousePos, Quaternion.identity);
+        GameObject state = Instantiate(statePrefab, mousePos, Quaternion.identity);
     }
 }

@@ -4,8 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - DFA
-  - DFA_Curve
+  - State
   layers:
   - Default
   - TransparentFX
@@ -15,7 +14,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - States
   - 
   - 
   - 
