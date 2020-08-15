@@ -6,7 +6,7 @@ public class StateCreator : MonoBehaviour
     [SerializeField] private GameObject statePrefab;
     private void Start()
     {
-        StateCreationEvents.Instance.OnStateCreated += OnCreateStateObject;
+        StateCreationEvents.Instance.OnCreateState += OnCreateStateObject;
     }
 
     private void OnCreateStateObject()

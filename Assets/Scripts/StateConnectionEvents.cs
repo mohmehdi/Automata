@@ -7,14 +7,26 @@ public class StateConnectionEvents : MonoBehaviour
 {
     public static StateConnectionEvents Instance { get; private set; }
     public StateID firstStateID;
+    public StateID secondStateID;
 
     public event Action OnFirstStateSelected;
+    public event Action OnSecondStateSelected;
+    public event Action OnSecondStateSelectionCanceled;
+
     private void Awake()
     {
         Instance = this;
     }
-    public void SelectFirstState()
+    public void FirstStateSelected()
     {
         OnFirstStateSelected?.Invoke();
+    }
+    public void SecondStateSelected()
+    {
+        OnSecondStateSelected?.Invoke();
+    }
+    public void SecondStateSelectionCanceled()
+    {
+        OnSecondStateSelectionCanceled?.Invoke();
     }
 }

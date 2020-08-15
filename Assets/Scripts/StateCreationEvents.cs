@@ -7,14 +7,14 @@ public class StateCreationEvents : MonoBehaviour
 {
     public static StateCreationEvents Instance { get; private set; }
 
-    public event Action OnStateCreated;
+    public event Action OnCreateState;
     private void Awake()
     {
         Instance = this;
     }
     public void CreateState()
     {
-        OnStateCreated?.Invoke();
+        OnCreateState?.Invoke();
         AutomataManager.CurrentStateId++;
         Debug.Log("manager id"+AutomataManager.CurrentStateId);
     }
