@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 using DefaultNamespace;
 using UnityEngine;
 
-public class StateConnectionEvents : MonoBehaviour
+public class ConnectionEvents : MonoBehaviour
 {
-    public static StateConnectionEvents Instance { get; private set; }
+    public static ConnectionEvents Instance { get; private set; }
     public StateID firstStateID;
     public StateID secondStateID;
 

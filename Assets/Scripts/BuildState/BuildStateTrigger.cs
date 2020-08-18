@@ -1,13 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-public class StateCreationTrigger : MonoBehaviour
+public class BuildStateTrigger : MonoBehaviour
 {
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StateCreationEvents.Instance.CreateState();
+            BuildStateEvents.Instance.CreateState();
         }
     }
 }

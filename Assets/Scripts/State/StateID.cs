@@ -11,7 +11,6 @@ namespace DefaultNamespace
         private void Start()
         {
             stateID = AutomataManager.CurrentStateId-1;
-            Debug.Log("obj id"+(stateID));
         }
     }
 }

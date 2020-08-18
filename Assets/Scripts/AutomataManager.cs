@@ -7,12 +7,12 @@ namespace DefaultNamespace
     {
         public static int CurrentStateId;
         private Automata _machine;
-        
+
 
         private void Start()
         {
-            char[] alphabet = new[] {'a', 'b'};
-            _machine= new DFA(alphabet);
+            char[] alphabet = new[] { 'a', 'b' };
+            _machine = new DFA(alphabet);
         }
     }
 }

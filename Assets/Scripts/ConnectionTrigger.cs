@@ -2,12 +2,21 @@
 using DefaultNamespace;
 using UnityEngine;
 
-public class StateConnectionTrigger : MonoBehaviour
+public class ConnectionTrigger : MonoBehaviour
 {
     [SerializeField] private LayerMask statesLayer;
 
+    private Camera _camera;
     private bool _isFirstSelected=false;
 
+    private void Start()
+    {
+        _camera = Camera.main;
+        if (!_camera)
+        {
+            Debug.Log("There is no active Camera with Main Tag on it u bumb idiot");
+        }
+    }
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
@@ -21,7 +30,7 @@ public class StateConnectionTrigger : MonoBehaviour
     }
     private void SelectFirst()
     {
-        var first = Detect();
+        var first = DetectStateObject();
         if (!first) return;
         var first_id = first.GetComponent<StateID>();
         if (!first_id)
@@ -30,8 +39,8 @@ public class StateConnectionTrigger : MonoBehaviour
             return;
         }
 
-        StateConnectionEvents.Instance.firstStateID = first_id;
-        StateConnectionEvents.Instance.FirstStateSelected();
+        ConnectionEvents.Instance.firstStateID = first_id;
+        ConnectionEvents.Instance.FirstStateSelected();
         _isFirstSelected = true;
         Debug.Log("first state selected");
     }
@@ -39,33 +48,42 @@ public class StateConnectionTrigger : MonoBehaviour
     {
         if (!_isFirstSelected) return;
 
-        var second = Detect();
+        var second = DetectStateObject();
         if (!second)
         {
-            StateConnectionEvents.Instance.SecondStateSelectionCanceled();
+            ConnectionEvents.Instance.SecondStateSelectionCanceled();
             Debug.Log("second state selection canceled");
             _isFirstSelected = false;
             return;
         }
+        Debug.Log(second.name);
         var second_id = second.GetComponent<StateID>();
         if (!second_id)
         {
+            ConnectionEvents.Instance.SecondStateSelectionCanceled();
             Debug.Log("selected state dosent have StateID component");
             _isFirstSelected = false;
             return;
         }
-        StateConnectionEvents.Instance.secondStateID = second_id;
-        StateConnectionEvents.Instance.SecondStateSelected();
+        ConnectionEvents.Instance.secondStateID = second_id;
+        ConnectionEvents.Instance.SecondStateSelected();
         _isFirstSelected = false;
         Debug.Log("second selected");
     }
-    private GameObject Detect()
+    private GameObject DetectStateObject()
     {
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos = new Vector3(mousePos.x, mousePos.y, 1);
-        Debug.DrawRay(-Vector3.forward, mousePos);
-        RaycastHit2D hit = Physics2D.Raycast(-Vector3.forward, mousePos, statesLayer);
+        mousePos = new Vector3(mousePos.x, mousePos.y, 0);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos + Vector3.back, mousePos + Vector3.forward);
         if (!hit) return null;
         return hit.collider.gameObject;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos = new Vector3(mousePos.x, mousePos.y, 0);
+        Gizmos.DrawWireSphere(mousePos, 1f);
+        Gizmos.DrawLine(mousePos + Vector3.back, mousePos + Vector3.forward) ;
     }
 }

@@ -10,7 +10,7 @@ class DFA : Automata
     {
         _states = new List<State>();
         Alphabet = alphabet;
-        StateCreationEvents.Instance.OnCreateState += OnAddState;
+        BuildStateEvents.Instance.OnCreateState += OnAddState;
     }
 
     protected override void OnAddState()

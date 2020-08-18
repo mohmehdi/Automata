@@ -1,12 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-public class StateCreator : MonoBehaviour
+public class AddState : MonoBehaviour
 {
     [SerializeField] private GameObject statePrefab;
     private void Start()
     {
-        StateCreationEvents.Instance.OnCreateState += OnCreateStateObject;
+        BuildStateEvents.Instance.OnCreateState += OnCreateStateObject;
     }
 
     private void OnCreateStateObject()

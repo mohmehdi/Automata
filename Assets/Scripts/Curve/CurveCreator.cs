@@ -9,23 +9,23 @@ public class CurveCreator : MonoBehaviour
     private GameObject _currentCreated;
     private void Start()
     {
-        StateConnectionEvents.Instance.OnFirstStateSelected += OnCreateCurveObject;
-        StateConnectionEvents.Instance.OnSecondStateSelected += OnSetCurveOptions;
-        StateConnectionEvents.Instance.OnSecondStateSelectionCanceled += OnDestroyCanceledCurve;
+        ConnectionEvents.Instance.OnFirstStateSelected += OnCreateCurveObject;
+        ConnectionEvents.Instance.OnSecondStateSelected += OnSetCurveOptions;
+        ConnectionEvents.Instance.OnSecondStateSelectionCanceled += OnDestroyCanceledConnection;
     }
 
     private void OnCreateCurveObject()
     {
-        _currentCreated = Instantiate(curvePrefab, Vector3.zero, Quaternion.identity);
+        _currentCreated = Instantiate(curvePrefab, Vector3.forward, Quaternion.identity);
         _currentCreated.GetComponent<Curve>().SetFrom();
     }
     private void OnSetCurveOptions()
     {
         _currentCreated.GetComponent<Curve>().SetTo();
     }
-    private void OnDestroyCanceledCurve()
+    private void OnDestroyCanceledConnection()
     {
-        if(!_currentCreated)
+        if(_currentCreated)
         Destroy(_currentCreated);
     }
 }
