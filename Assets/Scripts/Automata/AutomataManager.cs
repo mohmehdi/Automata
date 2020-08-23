@@ -1,8 +1,6 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DefaultNamespace
-{
     public class AutomataManager : MonoBehaviour
     {
         public static int CurrentStateId;
@@ -11,8 +9,10 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            char[] alphabet = new[] { 'a', 'b' };
-            _machine = new DFA(alphabet);
+        }
+        public void setAlphabet()
+        {
+            string[] alphabet = UIManager.Instance.get_alphabet_from_field() ;
+            _machine = new DFA(alphabet);            
         }
     }
-}

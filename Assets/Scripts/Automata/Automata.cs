@@ -2,8 +2,9 @@
 
 public abstract class Automata
 {
-    protected char[] Alphabet;
+    protected string[] Alphabet;
 
     protected abstract void OnAddState();
     protected abstract void OnDeleteState();
+    protected abstract string GetTag();
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class AddState : MonoBehaviour
+public class AddStateObject : MonoBehaviour
 {
     [SerializeField] private GameObject statePrefab;
     private void Start()
@@ -13,6 +13,6 @@ public class AddState : MonoBehaviour
     {
         Vector2 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        GameObject state = Instantiate(statePrefab, mousePos, Quaternion.identity);
+        Instantiate(statePrefab, mousePos, Quaternion.identity);
     }
 }

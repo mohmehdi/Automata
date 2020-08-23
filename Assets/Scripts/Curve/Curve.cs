@@ -1,6 +1,8 @@
 ﻿using System;
-using DefaultNamespace;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
+
 public class Curve:MonoBehaviour
 {
     [SerializeField] private Transform[] control;
@@ -8,9 +10,9 @@ public class Curve:MonoBehaviour
     private Camera _camera;//TODO: this shit should be removed cz used alot in every class
 
     private LineRenderer _curve;
-    private StateID _startState = null;
-    private StateID _lastState = null;
-
+    private StateObjectID _startState = null;
+    private StateObjectID _lastState = null;
+    private string _tag = "a";
 
     //TODO: add some id
     /// <summary>
@@ -28,6 +30,7 @@ public class Curve:MonoBehaviour
                 Debug.Log("Set Curve Control points "+ i.ToString());
             }
         }
+        ConnectionEvents.Instance.OnDeleteLastConnection += OnDeleteThis;
     }
     private void Update()
     {
@@ -38,7 +41,7 @@ public class Curve:MonoBehaviour
         }
         RenderCurve();
     }
-    public void RenderCurve()
+    private void RenderCurve()
     {
         CurveLineRenderer.SetCurvePositions(_curve, control);
     }
@@ -64,5 +67,23 @@ public class Curve:MonoBehaviour
         var mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
         mousePos = new Vector3(mousePos.x, mousePos.y, 0);
         return mousePos;
+    }
+    
+    private void OnDeleteThis(State from,ConnectionData label)
+    {
+        //Debug.Log(gameObject);
+        //Debug.Log(CurveCreator.CurrentCurveHash);
+         if(gameObject.GetHashCode() == CurveCreator.CurrentCurveHash) return;
+
+        if (from.StateID == _startState.ID &&
+            label.Tag == _tag &&
+            label.To.StateID == _lastState.ID )
+        {
+            ConnectionEvents.Instance.OnDeleteLastConnection -= OnDeleteThis;
+
+            Destroy(control[0].gameObject);
+            Destroy(control[4].gameObject);
+            Destroy(gameObject);
+        }
     }
 }

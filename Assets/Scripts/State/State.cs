@@ -1,30 +1,58 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 public class State
 {
-    public Status Status { get; private set; }
-    private Dictionary<string, State> _states;
-    private int stateID;
+    public Status Status { get; private set; } //this will used for Automatas classes for later
+    public int StateID { get;private set; }
+
+    private List<ConnectionData> _connections;
+   
+    //dont README . im confusing
+    //there is always just one connection from A with "tag" to B .keep it in mind
+    //but in some automatas like dfa there is just one connection from A with "tag" ,because its deterministic
+    
+
     public State(int id)
     {
-        _states = new Dictionary<string, State>();
+        _connections = new List<ConnectionData>();
         Status = Status.NORMAL;
-        stateID = id;
+        StateID = id;
     }
-    public void Connect(string label, State s)
+    public List<State> GetNextStates(string tag)
     {
-        if (ContainKey(label))
-            _states[label] = s;
-        else
-            _states.Add(label, s);
+        var states = new List<State>();
+        foreach (var c in _connections)
+        {
+            if (c.Tag == tag)
+            {
+                states.Add(c.To);
+            }
+        }
+        return states;
     }
-    public void Disconnect(string label)
+    public bool Connect(string tag, State to)
     {
-        if (ContainKey(label))
-            _states[label] = null;
+        foreach (var c in _connections)
+        {
+            if (c.Tag == tag && c.To == to)
+            {
+                Debug.Log("Current connention currently added with : " + tag +" to state : "+  to.StateID );
+                return false;
+            }
+        }
+        _connections.Add(new ConnectionData( tag, to));
+        return true;
     }
-    public State GetNextState(string label)
+    public void Disconnect(string tag, State to)
     {
-        return ContainKey(label) ? _states[label] : null;
+        foreach (var c in _connections)
+        {
+            if (c.Tag == tag && c.To == to)
+            {
+                _connections.Remove(c);
+                //Debug.Log(tag + "remove sucseed bro. well done. im so proud of u.");
+                return;
+            }
+        }
     }
-    public bool ContainKey(string label) => _states.ContainsKey(label);
 }

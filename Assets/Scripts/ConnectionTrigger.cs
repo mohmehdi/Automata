@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConnectionTrigger : MonoBehaviour
 {
-    [SerializeField] private LayerMask statesLayer;
+    [SerializeField] private LayerMask statesLayer;//TODO: this shit dosent working 
 
     private Camera _camera;
     private bool _isFirstSelected=false;
@@ -14,7 +14,7 @@ public class ConnectionTrigger : MonoBehaviour
         _camera = Camera.main;
         if (!_camera)
         {
-            Debug.Log("There is no active Camera with Main Tag on it u bumb idiot");
+            Debug.Log("There is no active Camera with Main Tag on it u dumb idiot");
         }
     }
     private void Update()
@@ -32,7 +32,7 @@ public class ConnectionTrigger : MonoBehaviour
     {
         var first = DetectStateObject();
         if (!first) return;
-        var first_id = first.GetComponent<StateID>();
+        var first_id = first.GetComponent<StateObjectID>();
         if (!first_id)
         {
             Debug.Log("selected state dosent have StateID component");
@@ -56,8 +56,8 @@ public class ConnectionTrigger : MonoBehaviour
             _isFirstSelected = false;
             return;
         }
-        Debug.Log(second.name);
-        var second_id = second.GetComponent<StateID>();
+        //Debug.Log(second.name);
+        var second_id = second.GetComponent<StateObjectID>();
         if (!second_id)
         {
             ConnectionEvents.Instance.SecondStateSelectionCanceled();
@@ -70,20 +70,26 @@ public class ConnectionTrigger : MonoBehaviour
         _isFirstSelected = false;
         Debug.Log("second selected");
     }
+
+    /// <summary>
+    /// cast a ray 1 unit behind mousePos to 1 unit forward
+    /// that state sprite will be in between
+    /// </summary>
+    /// <returns></returns>
     private GameObject DetectStateObject()
     {
-        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
         mousePos = new Vector3(mousePos.x, mousePos.y, 0);
         RaycastHit2D hit = Physics2D.Raycast(mousePos + Vector3.back, mousePos + Vector3.forward);
         if (!hit) return null;
         return hit.collider.gameObject;
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos = new Vector3(mousePos.x, mousePos.y, 0);
-        Gizmos.DrawWireSphere(mousePos, 1f);
-        Gizmos.DrawLine(mousePos + Vector3.back, mousePos + Vector3.forward) ;
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //    mousePos = new Vector3(mousePos.x, mousePos.y, 0);
+    //    Gizmos.DrawWireSphere(mousePos, 1f);
+    //    Gizmos.DrawLine(mousePos + Vector3.back, mousePos + Vector3.forward) ;
+    //}
 }

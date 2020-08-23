@@ -2,7 +2,7 @@
 
 public class CurveLineRenderer
 {
-    private static Vector3 BezierCurvePointPosition(Transform[] cpoints, float t)
+    private static Vector3 BezierCurveFunction(Transform[] cpoints, float t)
     {
         return (Mathf.Pow(1 - t, 4) * cpoints[0].position) +
              (4 * t * Mathf.Pow(1 - t, 3) * cpoints[1].position) +
@@ -22,7 +22,7 @@ public class CurveLineRenderer
         for (int i = 0; i < quality; i++)
         {
             float t = (float)i / (quality-1);
-            curve.SetPosition(i, BezierCurvePointPosition(points, t));
+            curve.SetPosition(i, BezierCurveFunction(points, t));
         }
     }
 }
