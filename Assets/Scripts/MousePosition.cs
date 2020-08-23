@@ -2,21 +2,12 @@
 using UnityEngine;
     class MousePosition
     {
-        private static Camera camera
-        {
-            get 
-            {
-                if (camera == null)
-                {
-                    camera = Camera.main;
-                }
-                return camera;
-            }
-            set 
-            {
-                camera = value;   
-            }
-        }
+    public MousePosition()
+    {
+        camera = Camera.main;
+    }
+
+    private static Camera camera;
         public static Vector3 GetMousePosition()
         {
             var mousePos = camera.ScreenToWorldPoint(Input.mousePosition);

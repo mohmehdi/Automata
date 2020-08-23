@@ -71,19 +71,23 @@ public class Curve:MonoBehaviour
     
     private void OnDeleteThis(State from,ConnectionData label)
     {
-        //Debug.Log(gameObject);
-        //Debug.Log(CurveCreator.CurrentCurveHash);
+        Debug.Log(gameObject);
+        Debug.Log(CurveCreator.CurrentCurveHash);
          if(gameObject.GetHashCode() == CurveCreator.CurrentCurveHash) return;
 
         if (from.StateID == _startState.ID &&
             label.Tag == _tag &&
             label.To.StateID == _lastState.ID )
         {
-            ConnectionEvents.Instance.OnDeleteLastConnection -= OnDeleteThis;
 
             Destroy(control[0].gameObject);
             Destroy(control[4].gameObject);
             Destroy(gameObject);
         }
+    }
+    public void OnDestroy()
+    {
+        if (!ConnectionEvents.Instance) return;
+        ConnectionEvents.Instance.OnDeleteLastConnection -= OnDeleteThis;
     }
 }

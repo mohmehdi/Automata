@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using DefaultNamespace;
 using UnityEngine;
 
 public class BuildStateEvents : MonoBehaviour

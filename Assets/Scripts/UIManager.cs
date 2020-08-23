@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         Instance = this;
+        MousePosition m = new MousePosition();
     }
     public string[] get_alphabet_from_field()
     {
