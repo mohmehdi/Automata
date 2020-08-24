@@ -11,6 +11,7 @@ class DFA : Automata
         Alphabet = alphabet;
         BuildStateEvents.Instance.OnCreateState += OnAddState;
         ConnectionEvents.Instance.OnSecondStateSelected += OnConnect;
+        ConnectionEvents.Instance.curveTag = Alphabet[0];
     }
     protected override void OnAddState()
     {
@@ -27,7 +28,7 @@ class DFA : Automata
     }
     protected override string GetTag()//TODO : Get From alphabet and input
     {
-        string tag = "a";
+        string tag = ConnectionEvents.Instance.curveTag;
         return tag;
     }
     private void Connect(int first, int second, string tag)

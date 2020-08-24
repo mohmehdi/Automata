@@ -6,13 +6,13 @@ using UnityEngine.UIElements;
 public class Curve:MonoBehaviour
 {
     [SerializeField] private Transform[] control;
-
-    private Camera _camera;//TODO: this shit should be removed cz used alot in every class
+    [SerializeField] private GameObject dropDownPrefab;
+    private ConnectionTagMaker connectionTagMaker;
 
     private LineRenderer _curve;
     private StateObjectID _startState = null;
     private StateObjectID _lastState = null;
-    private string _tag = "a";
+    private string _tag ;
 
     //TODO: add some id
     /// <summary>
@@ -21,25 +21,30 @@ public class Curve:MonoBehaviour
     /// </summary>
     private void Start()
     {
-        _camera = Camera.main;
+        connectionTagMaker = GetComponent<ConnectionTagMaker>();
         _curve = GetComponent<LineRenderer>();
         for (int i = 0; i < control.Length; i++)
         {
             if (control[i] == null)
             {
-                Debug.Log("Set Curve Control points "+ i.ToString());
+                Debug.Log("Set Curve Control points " + i.ToString());
             }
         }
         ConnectionEvents.Instance.OnDeleteLastConnection += OnDeleteThis;
+        _tag = ConnectionEvents.Instance.curveTag;
+
+        Debug.Log("Current Curve tag : "+_tag);
+        connectionTagMaker.Initialize(dropDownPrefab, UIManager.Instance.transform);
     }
     private void Update()
     {
         if (!_lastState)
         {
-            control[4].position = GetMousePosition();
+            control[4].position = MousePosition.GetMousePosition();
             SetMiddle();
         }
         RenderCurve();
+        connectionTagMaker.SetPosition(MousePosition.GetCamera().WorldToScreenPoint( GetMiddlePoint()));
     }
     private void RenderCurve()
     {
@@ -59,14 +64,9 @@ public class Curve:MonoBehaviour
     public void SetTo()
     {
         _lastState = ConnectionEvents.Instance.secondStateID;
+
         control[4].position = _lastState.gameObject.transform.position;
         control[4].SetParent(_lastState.transform);
-    }
-    private Vector3 GetMousePosition() //TODO: Remove this ASAP ASSHOLE
-    {
-        var mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
-        mousePos = new Vector3(mousePos.x, mousePos.y, 0);
-        return mousePos;
     }
     
     private void OnDeleteThis(State from,ConnectionData label)
@@ -89,5 +89,9 @@ public class Curve:MonoBehaviour
     {
         if (!ConnectionEvents.Instance) return;
         ConnectionEvents.Instance.OnDeleteLastConnection -= OnDeleteThis;
+    }
+    private Vector2 GetMiddlePoint()
+    {
+        return _curve.GetPosition(_curve.positionCount / 2);
     }
 }

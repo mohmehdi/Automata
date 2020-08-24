@@ -7,6 +7,7 @@ public class ConnectionEvents : MonoBehaviour
     public static ConnectionEvents Instance { get; private set; }
     public StateObjectID firstStateID;
     public StateObjectID secondStateID;
+    public string curveTag;
 
     public event Action OnFirstStateSelected;
     public event Action OnSecondStateSelected;

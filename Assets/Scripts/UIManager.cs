@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
-using UnityEngine.XR.WSA.Input;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,8 +8,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InputField alphabet;
     [SerializeField] private Text currentTag;
     [SerializeField] private GameObject view;
-    [SerializeField] private GameObject btn;
-
+    [SerializeField] private UnityEngine.UI.Dropdown dropdown;
+    [SerializeField] private UnityEngine.UI.Button setbtn;
+    private string[] _alphabet;
     private void Start()
     {
         Instance = this;
@@ -20,17 +18,30 @@ public class UIManager : MonoBehaviour
     }
     public string[] get_alphabet_from_field()
     {
-        return alphabet.text.Split(',');
+        _alphabet = alphabet.text.Split(',');
+        return _alphabet;
     }
     public void set_alphabet_buttons()
     {
-        int n = alphabet.text.Split(',').Length;
-        for (int i = 0; i < n; i++)
+        setbtn.enabled = false;
+        string[] n = alphabet.text.Split(',');
+        List<Dropdown.OptionData> data = new List<Dropdown.OptionData>();
+        for (int i = 0; i < n.Length; i++)
         {
-            GameObject b = Instantiate(btn);
-            b.transform.SetParent(view.transform, false);
-            RectTransform r = b.GetComponent<RectTransform>();
-            r.transform.localPosition = new Vector3(r.transform.localPosition.x, -i * r.rect.height, r.transform.localPosition.z);
+            //GameObject b = Instantiate(btn);
+
+            //b.transform.SetParent(view.transform, false);
+            //RectTransform r = b.GetComponent<RectTransform>();
+            //r.transform.localPosition = new Vector3(r.transform.localPosition.x, -i * r.rect.height, r.transform.localPosition.z);
+            //Debug.Log("i from set btns "+ i);
+            //b.GetComponent<Button>().onClick.AddListener(delegate { getLetter(i); }) ;
+            Dropdown.OptionData option = new Dropdown.OptionData(_alphabet[i]);
+            data.Add(option);
         }
+            dropdown.AddOptions(data);
+    }
+    public void getLetter()
+    {
+        ConnectionEvents.Instance.curveTag = _alphabet[dropdown.value];
     }
 }
