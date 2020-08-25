@@ -12,7 +12,7 @@ public class ConnectionEvents : MonoBehaviour
     public event Action OnFirstStateSelected;
     public event Action OnSecondStateSelected;
     public event Action OnSecondStateSelectionCanceled;
-    public event Action<State,ConnectionData> OnDeleteLastConnection;
+    public event Action<DState,ConnectionData> OnDeleteLastConnection;
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class ConnectionEvents : MonoBehaviour
     {
         OnSecondStateSelectionCanceled?.Invoke();
     }
-    public void DeleteLastConnection(State from,ConnectionData label)
+    public void DeleteLastConnection(DState from,ConnectionData label)
     {
         OnDeleteLastConnection?.Invoke(from,label);
     }

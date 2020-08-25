@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 class DFA : Automata
 {
-    private List<State> _states;
-    private State _start;
+    private List<DState> _states;
+    private DState _start;
     public DFA(string[] alphabet)
     {
-        _states = new List<State>();
+        _states = new List<DState>();
         Alphabet = alphabet;
         BuildStateEvents.Instance.OnCreateState += OnAddState;
         ConnectionEvents.Instance.OnSecondStateSelected += OnConnect;
@@ -16,7 +16,7 @@ class DFA : Automata
     protected override void OnAddState()
     {
         int id = AutomataManager.CurrentStateId;
-        _states.Add(new State(id));
+        _states.Add(new DState(id));
        // Debug.Log("DFA id"+id);
     }
     private void OnConnect()
@@ -33,7 +33,7 @@ class DFA : Automata
     }
     private void Connect(int first, int second, string tag)
     {
-        State from = null, to = null;
+        DState from = null, to = null;
         foreach (var s in _states)
         {
             if (s.StateID == first)

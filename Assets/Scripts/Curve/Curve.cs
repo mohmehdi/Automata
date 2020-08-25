@@ -69,7 +69,7 @@ public class Curve:MonoBehaviour
         control[4].SetParent(_lastState.transform);
     }
     
-    private void OnDeleteThis(State from,ConnectionData label)
+    private void OnDeleteThis(DState from,ConnectionData label)
     {
         Debug.Log(gameObject);
         Debug.Log(CurveCreator.CurrentCurveHash);
