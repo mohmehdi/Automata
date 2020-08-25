@@ -23,4 +23,8 @@ public class AutomataManager : MonoBehaviour
         _machine = new DFA(alphabet);
         Alphabet = alphabet;
     }
+    public static void ChangeTag(int index)
+    {
+        ConnectionEvents.Instance.curveTag = Alphabet[index];
+    }
 }
