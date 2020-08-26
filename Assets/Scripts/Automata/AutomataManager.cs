@@ -7,6 +7,7 @@ public enum AutomataType
 }
 public class AutomataManager : MonoBehaviour
 {
+    public static AutomataManager Instance;
     public static AutomataType automataType;
     public static string[] Alphabet;
     public static int CurrentStateId;
@@ -15,16 +16,18 @@ public class AutomataManager : MonoBehaviour
 
     private void Start()
     {
+        Instance = this;
         automataType = AutomataType.dfa;
     }
     public void setAlphabet()
     {
         string[] alphabet = UIManager.Instance.get_alphabet_from_field();
-        _machine = new DFA(alphabet);
+        _machine = new DFA();
         Alphabet = alphabet;
     }
-    public static void ChangeTag(int index)
+    public bool TryConnect(int from , string tag , int to) 
     {
-        ConnectionEvents.Instance.curveTag = Alphabet[index];
+        return _machine.TryConnect(from, tag, to);
     }
+
 }

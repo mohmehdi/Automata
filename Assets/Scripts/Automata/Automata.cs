@@ -2,9 +2,7 @@
 
 public abstract class Automata
 {
-    protected string[] Alphabet;
-
     protected abstract void OnAddState();
     protected abstract void OnDeleteState();
-    protected abstract string GetTag();
+    public abstract bool TryConnect(int from, string tag, int to);
 }

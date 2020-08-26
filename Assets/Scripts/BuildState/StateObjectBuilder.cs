@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class AddStateObject : MonoBehaviour
+public class StateObjectBuilder : MonoBehaviour
 {
     [SerializeField] private GameObject statePrefab;
     private void Start()

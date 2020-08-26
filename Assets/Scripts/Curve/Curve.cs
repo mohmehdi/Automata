@@ -7,12 +7,11 @@ public class Curve:MonoBehaviour
 {
     [SerializeField] private Transform[] control;
     [SerializeField] private GameObject dropDownPrefab;
-    private ConnectionTagMaker connectionTagMaker;
+    private DropDownSetup dropDownSetup;
 
     private LineRenderer _curve;
-    private StateObjectID _startState = null;
-    private StateObjectID _lastState = null;
-    private string _tag ;
+    private StateObjectID _fromID = null;
+    private StateObjectID _toID = null;
 
     //TODO: add some id
     /// <summary>
@@ -21,7 +20,7 @@ public class Curve:MonoBehaviour
     /// </summary>
     private void Start()
     {
-        connectionTagMaker = GetComponent<ConnectionTagMaker>();
+        dropDownSetup = GetComponent<DropDownSetup>();
         _curve = GetComponent<LineRenderer>();
         for (int i = 0; i < control.Length; i++)
         {
@@ -30,21 +29,18 @@ public class Curve:MonoBehaviour
                 Debug.Log("Set Curve Control points " + i.ToString());
             }
         }
-        ConnectionEvents.Instance.OnDeleteLastConnection += OnDeleteThis;
-        _tag = ConnectionEvents.Instance.curveTag;
 
-        Debug.Log("Current Curve tag : "+_tag);
-        connectionTagMaker.Initialize(dropDownPrefab, UIManager.Instance.transform);
+        dropDownSetup.Initialize(dropDownPrefab, UIManager.Instance.transform);
     }
     private void Update()
     {
-        if (!_lastState)
+        if (!_toID)
         {
             control[4].position = MousePosition.GetMousePosition();
             SetMiddle();
         }
         RenderCurve();
-        connectionTagMaker.SetPosition(MousePosition.GetCamera().WorldToScreenPoint( GetMiddlePoint()));
+        dropDownSetup.SetPosition(MousePosition.GetCamera().WorldToScreenPoint( GetMiddlePoint()));
     }
     private void RenderCurve()
     {
@@ -53,9 +49,9 @@ public class Curve:MonoBehaviour
 
     public void SetFrom()
     {
-        _startState = ConnectionEvents.Instance.firstStateID;
-        control[0].position = _startState.gameObject.transform.position;
-        control[0].SetParent(_startState.transform);
+        _fromID = ConnectionEvents.Instance.firstStateID;
+        control[0].position = _fromID.gameObject.transform.position;
+        control[0].SetParent(_fromID.transform);
     }
     private void SetMiddle()
     {
@@ -63,33 +59,13 @@ public class Curve:MonoBehaviour
     }
     public void SetTo()
     {
-        _lastState = ConnectionEvents.Instance.secondStateID;
+        _toID = ConnectionEvents.Instance.secondStateID;
 
-        control[4].position = _lastState.gameObject.transform.position;
-        control[4].SetParent(_lastState.transform);
+        control[4].position = _toID.gameObject.transform.position;
+        control[4].SetParent(_toID.transform);
+        dropDownSetup.SetDropDownFromAndTo(_fromID.ID, _toID.ID);
     }
     
-    private void OnDeleteThis(DState from,ConnectionData label)
-    {
-        Debug.Log(gameObject);
-        Debug.Log(CurveCreator.CurrentCurveHash);
-         if(gameObject.GetHashCode() == CurveCreator.CurrentCurveHash) return;
-
-        if (from.StateID == _startState.ID &&
-            label.Tag == _tag &&
-            label.To.StateID == _lastState.ID )
-        {
-
-            Destroy(control[0].gameObject);
-            Destroy(control[4].gameObject);
-            Destroy(gameObject);
-        }
-    }
-    public void OnDestroy()
-    {
-        if (!ConnectionEvents.Instance) return;
-        ConnectionEvents.Instance.OnDeleteLastConnection -= OnDeleteThis;
-    }
     private Vector2 GetMiddlePoint()
     {
         return _curve.GetPosition(_curve.positionCount / 2);

@@ -4,13 +4,19 @@ using UnityEngine.UI;
 
 class DropDownOptionManager : MonoBehaviour
 {
-    [SerializeField] private Dropdown dropDown;
-
+    private Dropdown dropDown;
+    [SerializeField] Sprite selected, notSelected;
+    public int _from, _to;
     private void Start()
     {
+        dropDown = GetComponent<Dropdown>();
+        if (dropDown == null)
+        {
+            Debug.Log("Set dropDown u Asshole");
+        }
         SetOptions();
     }
-    private void SetOptions()//can take a int to set diffrent alphabets from automatas
+    private void SetOptions()//can take a int to set diffrent inputs from automatas
     {
         var alphabet = AutomataManager.Alphabet;
         List<Dropdown.OptionData> data = new List<Dropdown.OptionData>();
@@ -22,12 +28,12 @@ class DropDownOptionManager : MonoBehaviour
         }
         dropDown.ClearOptions();
         dropDown.AddOptions(data);
-        dropDown.onValueChanged.AddListener(delegate { DropDownValueChanged(); });
-    }
-    public void DropDownValueChanged()
-    {
-        Debug.Log(dropDown.value);
-        AutomataManager.ChangeTag(dropDown.value);
-    }
 
+        //dropDown.onValueChanged.AddListener(delegate {CheckConnection(); });
+    }
+    private void CheckConnection()
+    {
+        bool res = AutomataManager.Instance.TryConnect(_from, dropDown.options[dropDown.value].text, _to);
+        Debug.Log("Checking connection --> result :  " + res);
+    }
 }

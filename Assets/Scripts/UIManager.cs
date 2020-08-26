@@ -40,8 +40,4 @@ public class UIManager : MonoBehaviour
         }
             dropdown.AddOptions(data);
     }
-    public void getLetter()
-    {
-        ConnectionEvents.Instance.curveTag = _alphabet[dropdown.value];
-    }
 }

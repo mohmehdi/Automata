@@ -55,7 +55,7 @@ public class ConnectionTrigger : MonoBehaviour
             _isFirstSelected = false;
             return;
         }
-        Debug.Log(second.name);
+        //Debug.Log(second.name);
         var second_id = second.GetComponent<StateObjectID>();
         if (!second_id)
         {
@@ -79,7 +79,7 @@ public class ConnectionTrigger : MonoBehaviour
     {
         var mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
         mousePos = new Vector3(mousePos.x, mousePos.y, 0);
-        Debug.Log(statesLayer.value);
+        //Debug.Log(statesLayer.value);
         RaycastHit2D hit = Physics2D.Raycast(mousePos + Vector3.back, mousePos + Vector3.zero,1.5f,statesLayer.value);
         if (!hit) return null;
         return hit.collider.gameObject;
