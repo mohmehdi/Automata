@@ -28,7 +28,7 @@ class DFA : Automata
             Debug.LogError(("Cannot connec : " + from + " with :" + tag + " to : " + to));
         }
         return res;
-    }    
+    }
     
     protected override void OnDeleteState()
     {
