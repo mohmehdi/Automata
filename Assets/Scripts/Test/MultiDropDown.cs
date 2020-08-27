@@ -29,17 +29,8 @@ public class MultiDropDown : MonoBehaviour
             // t.GetComponent<RectTransform>().rect.Set(0, i * toggleHeight,100,toggleHeight);
         }
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            optionsMenu.SetActive(false) ;
-            Button.interactable = true ;
-        }
-    }
     public void TurnMenuOnOff()
     {
-        Button.interactable = false;
         optionsMenu.SetActive(!optionsMenu.activeSelf);
     }
     

@@ -31,7 +31,7 @@ public class ConnectionTrigger : MonoBehaviour
     {
         var first = DetectStateObject();
         if (!first) return;
-        var first_id = first.GetComponent<StateObjectID>();
+        var first_id = first.GetComponent<StateObject>();
         if (!first_id)
         {
             Debug.Log("selected state dosent have StateID component");
@@ -56,7 +56,7 @@ public class ConnectionTrigger : MonoBehaviour
             return;
         }
         //Debug.Log(second.name);
-        var second_id = second.GetComponent<StateObjectID>();
+        var second_id = second.GetComponent<StateObject>();
         if (!second_id)
         {
             ConnectionEvents.Instance.SecondStateSelectionCanceled();

@@ -28,11 +28,13 @@ public class DState
         _connections.Add(tag,to);
         return true;
     }
-    public void Disconnect(string tag, DState to)
+    public bool Disconnect(string tag, DState to)
     {
         if (_connections.ContainsKey(tag))
         {
             _connections.Remove(tag);
+            return true;
         }
+        return false;
     }
 }

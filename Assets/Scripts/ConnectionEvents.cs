@@ -5,8 +5,8 @@ using UnityEngine;
 public class ConnectionEvents : MonoBehaviour
 {
     public static ConnectionEvents Instance { get; private set; }
-    public StateObjectID firstStateID;
-    public StateObjectID secondStateID;
+    public StateObject firstStateID;
+    public StateObject secondStateID;
 
     public event Action OnFirstStateSelected;
     public event Action OnSecondStateSelected;

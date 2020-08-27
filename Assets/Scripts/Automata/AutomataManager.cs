@@ -18,16 +18,19 @@ public class AutomataManager : MonoBehaviour
     {
         Instance = this;
         automataType = AutomataType.dfa;
+        _machine = new DFA();
     }
     public void setAlphabet()
     {
         string[] alphabet = UIManager.Instance.get_alphabet_from_field();
-        _machine = new DFA();
         Alphabet = alphabet;
     }
     public bool TryConnect(int from , string tag , int to) 
     {
         return _machine.TryConnect(from, tag, to);
     }
-
+    public bool TryDisConnect(int from, string tag, int to)
+    {
+        return _machine.TryDisConnect(from, tag, to);
+    }
 }

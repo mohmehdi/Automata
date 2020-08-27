@@ -15,6 +15,7 @@ class DFA : Automata
         int id = AutomataManager.CurrentStateId;
         DState newState = new DState();
         _states.Add(id,newState);
+        Debug.Log("State " + id + " added");
     }
     public override bool TryConnect(int from , string tag ,int to)
     {
@@ -29,9 +30,13 @@ class DFA : Automata
         }
         return res;
     }
-    
+    public override bool TryDisConnect(int from, string tag, int to)
+    {
+        return _states[from].Disconnect(tag, _states[to]);
+    }    
     protected override void OnDeleteState()
     {
         throw new NotImplementedException();
     }
+
 }

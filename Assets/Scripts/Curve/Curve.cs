@@ -10,8 +10,8 @@ public class Curve:MonoBehaviour
     private DropDownSetup dropDownSetup;
 
     private LineRenderer _curve;
-    private StateObjectID _fromID = null;
-    private StateObjectID _toID = null;
+    private StateObject _fromID = null;
+    private StateObject _toID = null;
 
     //TODO: add some id
     /// <summary>

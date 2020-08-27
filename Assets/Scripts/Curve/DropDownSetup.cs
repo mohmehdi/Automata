@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 class DropDownSetup : MonoBehaviour
 {
-    private DropDownOptionManager _dropDown;
+    private MyDropDown _dropDown;
     private RectTransform _dropDownTransform;
     public void Initialize(GameObject dropDown , Transform canvas)
     {
@@ -21,7 +21,7 @@ class DropDownSetup : MonoBehaviour
             drop.transform.SetParent(canvas);
             _dropDownTransform = drop.GetComponent<RectTransform>();
         }
-        _dropDown = drop.GetComponent<DropDownOptionManager>();
+        _dropDown = drop.GetComponent<MyDropDown>();
         if (_dropDown==null)
         {
             Debug.Log("Why ?");
