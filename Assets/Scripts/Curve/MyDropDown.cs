@@ -11,6 +11,16 @@ class MyDropDown : MonoBehaviour
     private void Start()
     {
         SetOptions();
+        ConnectionEvents.Instance.OnEditMode += OnActiveEditMode;
+        gameObject.SetActive(false);
+    }
+    private void OnActiveEditMode(bool flag)
+    {
+        gameObject.SetActive(!flag);
+    }
+    private void OnDestroy()
+    {
+        ConnectionEvents.Instance.OnEditMode -= OnActiveEditMode;
     }
     private void SetOptions()//can take a int to set diffrent inputs from automatas
     {

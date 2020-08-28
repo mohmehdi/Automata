@@ -7,7 +7,9 @@ public class ConnectionEvents : MonoBehaviour
     public static ConnectionEvents Instance { get; private set; }
     public StateObject firstStateID;
     public StateObject secondStateID;
+    private bool isEditMode = false;
 
+    public event Action<bool> OnEditMode;
     public event Action OnFirstStateSelected;
     public event Action OnSecondStateSelected;
     public event Action OnSecondStateSelectionCanceled;
@@ -26,5 +28,10 @@ public class ConnectionEvents : MonoBehaviour
     public void SecondStateSelectionCanceled()
     {
         OnSecondStateSelectionCanceled?.Invoke();
+    }
+    public void ActiveEditMode()
+    {
+        OnEditMode?.Invoke(isEditMode);
+        isEditMode = !isEditMode;
     }
 }

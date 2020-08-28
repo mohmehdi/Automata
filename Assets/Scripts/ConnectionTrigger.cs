@@ -26,6 +26,10 @@ public class ConnectionTrigger : MonoBehaviour
         {
             SelectSecond();
         }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ConnectionEvents.Instance.ActiveEditMode();
+        }
     }
     private void SelectFirst()
     {

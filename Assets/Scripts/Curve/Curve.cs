@@ -34,10 +34,10 @@ public class Curve:MonoBehaviour
     }
     private void Update()
     {
-        if (!_toID)
+        if (!_toID) //if second state still not selected . set second position to mousePos
         {
             control[4].position = MousePosition.GetMousePosition();
-            SetMiddle();
+            SetMiddleInBetween();
         }
         RenderCurve();
         dropDownSetup.SetPosition(MousePosition.GetCamera().WorldToScreenPoint( GetMiddlePoint()));
@@ -53,7 +53,7 @@ public class Curve:MonoBehaviour
         control[0].position = _fromID.gameObject.transform.position;
         control[0].SetParent(_fromID.transform);
     }
-    private void SetMiddle()
+    private void SetMiddleInBetween()
     {
         control[2].position = control[4].position + (control[0].position - control[4].position) / 2;
     }
