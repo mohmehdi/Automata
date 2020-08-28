@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ButtonListenerAdd : MonoBehaviour
 {
-    [SerializeField]private Dropdown drop;
+    [SerializeField]private Dropdown drop=null;
     // Start is called before the first frame update
     void Start()
     {

@@ -9,6 +9,7 @@ class DFA : Automata
     {
         _states = new Dictionary<int, DState>();
         BuildStateEvents.Instance.OnCreateState += OnAddState;
+        BuildStateEvents.Instance.OnDeleteState += OnDeleteState;
     }
     protected override void OnAddState()
     {
@@ -17,6 +18,11 @@ class DFA : Automata
         _states.Add(id,newState);
         Debug.Log("State " + id + " added");
     }
+    protected override void OnDeleteState(int id)
+    {
+        _states.Remove(id);
+    }
+
     public override bool TryConnect(int from , string tag ,int to)
     {
         bool res = _states[from].TryConnect(tag, _states[to]);
@@ -34,10 +40,6 @@ class DFA : Automata
     {
         return _states[from].Disconnect(tag, _states[to]);
     }    
-    protected override void OnDeleteState()
-    {
-        throw new NotImplementedException();
-    }
 
     public override void ChangeStatus(int id, Status status)
     {

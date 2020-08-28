@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MultiDropDown : MonoBehaviour
 {
-    [SerializeField] GameObject togglePrefab;
-    [SerializeField] GameObject optionsMenu;
-    [SerializeField] Transform content;
+    [SerializeField] GameObject togglePrefab = null;
+    [SerializeField] GameObject optionsMenu = null;
+    [SerializeField] Transform content = null;
     private Button Button;
     private float toggleHeight;
 
@@ -23,7 +23,7 @@ public class MultiDropDown : MonoBehaviour
         {
             GameObject t = Instantiate(togglePrefab);
             t.transform.SetParent(content);
-            t.GetComponent<RectTransform>().localPosition = new Vector3(0,-i*toggleHeight);
+            t.GetComponent<RectTransform>().localPosition = new Vector3(0, -i * toggleHeight);
             t.GetComponentInChildren<Text>().text = ass[i];
 
             // t.GetComponent<RectTransform>().rect.Set(0, i * toggleHeight,100,toggleHeight);
@@ -33,5 +33,5 @@ public class MultiDropDown : MonoBehaviour
     {
         optionsMenu.SetActive(!optionsMenu.activeSelf);
     }
-    
+
 }

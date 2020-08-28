@@ -2,7 +2,7 @@
 
 public class HelperControlPointMovement : MonoBehaviour
 {
-    [SerializeField] private Transform other;
+    [SerializeField] private Transform other=null;
 
     private Vector3 _offset;
     private Vector3 _center;

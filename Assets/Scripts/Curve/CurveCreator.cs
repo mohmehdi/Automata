@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CurveCreator : MonoBehaviour
 {
-    [SerializeField] private GameObject curvePrefab;
+    [SerializeField] private GameObject curvePrefab=null;
 
     public static int CurrentCurveHash;
     private GameObject _currentCreated;

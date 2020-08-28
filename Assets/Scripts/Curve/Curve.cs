@@ -5,11 +5,12 @@ using UnityEngine.UIElements;
 
 public class Curve:MonoBehaviour
 {
-    [SerializeField] private Transform[] control;
-    [SerializeField] private GameObject dropDownPrefab;
-    [SerializeField] private LineRenderer line;
-    private DropDownSetup dropDownSetup;
+    [SerializeField] private Transform[] control = null;
+    [SerializeField] private GameObject dropDownPrefab =null;
+    [SerializeField] private LineRenderer line =null;
+    [SerializeField] private Transform direction = null;
 
+    private DropDownSetup _dropDownSetup;
     private LineRenderer _curve;
     private StateObject _fromID = null;
     private StateObject _toID = null;
@@ -21,7 +22,7 @@ public class Curve:MonoBehaviour
     /// </summary>
     private void Start()
     {
-        dropDownSetup = GetComponent<DropDownSetup>();
+        _dropDownSetup = GetComponent<DropDownSetup>();
         _curve = GetComponent<LineRenderer>();
         for (int i = 0; i < control.Length; i++)
         {
@@ -31,7 +32,8 @@ public class Curve:MonoBehaviour
             }
         }
 
-        dropDownSetup.Initialize(dropDownPrefab, UIManager.Instance.transform);
+        _dropDownSetup.Initialize(dropDownPrefab, UIManager.Instance.transform);
+        BuildStateEvents.Instance.OnDeleteState += DeleteWhenStateDeleted;
     }
     private void Update()
     {
@@ -41,7 +43,7 @@ public class Curve:MonoBehaviour
             SetMiddleInBetween();
         }
         RenderCurve();
-        dropDownSetup.SetPosition(MousePosition.GetCamera().WorldToScreenPoint( GetMiddlePoint()));
+        _dropDownSetup.SetPosition(MousePosition.GetCamera().WorldToScreenPoint( GetMiddlePoint()));
 
         line.SetPosition(0, control[1].position);
         line.SetPosition(1, control[3].position);
@@ -49,6 +51,12 @@ public class Curve:MonoBehaviour
     private void RenderCurve()
     {
         CurveLineRenderer.SetCurvePositions(_curve, control);
+        direction.position = control[4].position;
+        Vector2 v = (_curve.GetPosition(_curve.positionCount - 1) - _curve.GetPosition(_curve.positionCount-2)).normalized;
+        float degree = Mathf.Rad2Deg * Mathf.Atan(v.y / v.x);
+        degree = v.x < 0 ? degree + 180 : degree;
+       // Debug.Log(v.x + "  " + v.y + "  " + degree);
+        direction.transform.rotation=  Quaternion.Euler(0, 0, degree); 
     }
 
     public void SetFrom()
@@ -67,11 +75,29 @@ public class Curve:MonoBehaviour
 
         control[4].position = _toID.gameObject.transform.position;
         control[4].SetParent(_toID.transform);
-        dropDownSetup.SetDropDownFromAndTo(_fromID.ID, _toID.ID);
+        _dropDownSetup.SetDropDownFromAndTo(_fromID.ID, _toID.ID);
     }
     
     private Vector2 GetMiddlePoint()
     {
         return _curve.GetPosition(_curve.positionCount / 2);
+    }
+    private void DeleteWhenStateDeleted(int id)
+    {
+        if (id == _fromID.ID || id == _toID.ID)
+        {
+            DestroyThisCurve();
+        }
+    }
+
+    private void DestroyThisCurve()
+    {
+        Destroy(control[0].gameObject);
+        Destroy(control[4].gameObject);
+        Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        BuildStateEvents.Instance.OnDeleteState -= DeleteWhenStateDeleted;
     }
 }

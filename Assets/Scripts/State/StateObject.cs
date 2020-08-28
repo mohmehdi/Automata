@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class StateObject : MonoBehaviour
 {
-    [SerializeField] private Color[] colors;
+    [SerializeField] private Color[] colors = null;
 
     [HideInInspector]
     public int ID;
@@ -19,6 +19,7 @@ public class StateObject : MonoBehaviour
             Debug.LogError("Set State Colors");
         }
         BuildStateEvents.Instance.OnChangeStatus += SetColor;
+        BuildStateEvents.Instance.OnDeleteState += DestroyThis;
     }
     public void SetColor(int id, Status status)
     {
@@ -40,8 +41,16 @@ public class StateObject : MonoBehaviour
             _spriteRenderer.color = colors[2];
         }
     }
+    private void DestroyThis(int id)
+    {
+        if (id == ID)
+        {
+            Destroy(gameObject);
+        }
+    }
     private void OnDestroy()
     {
         BuildStateEvents.Instance.OnChangeStatus -= SetColor;
+        BuildStateEvents.Instance.OnDeleteState -= DestroyThis;
     }
 }

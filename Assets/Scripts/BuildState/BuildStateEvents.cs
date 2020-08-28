@@ -7,6 +7,7 @@ public class BuildStateEvents : MonoBehaviour
     public static BuildStateEvents Instance { get; private set; }
 
     public event Action OnCreateState;
+    public event Action<int> OnDeleteState;
     public event Action<int,Status> OnChangeStatus;
     private void Awake()
     {
@@ -17,6 +18,12 @@ public class BuildStateEvents : MonoBehaviour
         OnCreateState?.Invoke();
         AutomataManager.CurrentStateId++;
        // Debug.Log("manager id"+AutomataManager.CurrentStateId);
+    }
+
+    public void DeleteState(int id)
+    {
+        OnDeleteState?.Invoke(id);
+        Debug.Log("State << " + id + " >> Deleted");
     }
     public void ChangeStatus(int id,Status status)
     {

@@ -5,10 +5,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    [SerializeField] private InputField alphabet;
-    [SerializeField] private Text currentTag;
-    [SerializeField] private GameObject view;
-    [SerializeField] private UnityEngine.UI.Button setbtn;
+    [SerializeField] private InputField alphabet = null;
     private string[] _alphabet;
     private void Start()
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StateObjectBuilder : MonoBehaviour
 {
-    [SerializeField] private GameObject statePrefab;
+    [SerializeField] private GameObject statePrefab =null;
     private void Start()
     {
         BuildStateEvents.Instance.OnCreateState += OnCreateStateObject;

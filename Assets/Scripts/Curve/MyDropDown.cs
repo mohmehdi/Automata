@@ -3,16 +3,18 @@ using UnityEngine;
 
 class MyDropDown : MonoBehaviour
 {
-    [SerializeField] GameObject togglePrefab;
-    [SerializeField] GameObject optionsMenu;
-    [SerializeField] Transform content;
+    [SerializeField] GameObject togglePrefab = null;
+    [SerializeField] GameObject optionsMenu = null;
+    [SerializeField] Transform content = null;
     public int _from, _to;
     private float toggleHeight;
     private void Start()
     {
         SetOptions();
-        ConnectionEvents.Instance.OnEditMode += OnActiveEditMode;
         gameObject.SetActive(false);
+
+        ConnectionEvents.Instance.OnEditMode += OnActiveEditMode;
+        BuildStateEvents.Instance.OnDeleteState += DestroyThisWhenStateDeleted;
     }
     private void OnActiveEditMode(bool flag)
     {
@@ -21,6 +23,7 @@ class MyDropDown : MonoBehaviour
     private void OnDestroy()
     {
         ConnectionEvents.Instance.OnEditMode -= OnActiveEditMode;
+        BuildStateEvents.Instance.OnDeleteState -= DestroyThisWhenStateDeleted;
     }
     private void SetOptions()//can take a int to set diffrent inputs from automatas
     {
@@ -34,12 +37,18 @@ class MyDropDown : MonoBehaviour
             GameObject toggleObj = Instantiate(togglePrefab);
             toggleObj.transform.SetParent(content);
             toggleObj.GetComponent<RectTransform>().localPosition = new Vector3(0, -i * toggleHeight);
-            toggleObj.GetComponent<MyToggle>().Set(this, alphabet[i]) ;
+            toggleObj.GetComponent<MyToggle>().Set(this, alphabet[i]);
         }
     }
     public void TurnMenuOnOff()
     {
         optionsMenu.SetActive(!optionsMenu.activeSelf);
     }
-
+    private void DestroyThisWhenStateDeleted(int id)
+    {
+        if (_from == id || _to == id)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

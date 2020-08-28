@@ -22,9 +22,9 @@ class DropDownSetup : MonoBehaviour
             _dropDownTransform = drop.GetComponent<RectTransform>();
         }
         _dropDown = drop.GetComponent<MyDropDown>();
-        if (_dropDown==null)
+        if (_dropDown == null)
         {
-            Debug.Log("Why ?");
+            Debug.Log("why ?");
         }
     }
     public void SetDropDownFromAndTo(int from,int to)

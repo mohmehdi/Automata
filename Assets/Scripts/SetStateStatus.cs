@@ -2,7 +2,7 @@
 
 public class SetStateStatus : MonoBehaviour
 {
-    [SerializeField] private LayerMask stateLayer;
+    [SerializeField] private LayerMask stateLayer=0;
     private void Update()
     {
         var detectedObject = StateDetector.DetectStateObject(stateLayer);

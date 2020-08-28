@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ConnectionTrigger : MonoBehaviour
 {
-    [SerializeField] private LayerMask statesLayer;//TODO: this shit dosent working 
+    [SerializeField] private LayerMask statesLayer=0;//TODO: this shit dosent working 
 
     private bool _isFirstSelected=false;
 
