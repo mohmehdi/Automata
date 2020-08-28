@@ -15,6 +15,7 @@ class MyDropDown : MonoBehaviour
 
         ConnectionEvents.Instance.OnEditMode += OnActiveEditMode;
         BuildStateEvents.Instance.OnDeleteState += DestroyThisWhenStateDeleted;
+
     }
     private void OnActiveEditMode(bool flag)
     {

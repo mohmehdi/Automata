@@ -32,7 +32,6 @@ public class Curve:MonoBehaviour
             }
         }
 
-        _dropDownSetup.Initialize(dropDownPrefab, UIManager.Instance.transform);
         BuildStateEvents.Instance.OnDeleteState += DeleteWhenStateDeleted;
     }
     private void Update()
@@ -42,8 +41,11 @@ public class Curve:MonoBehaviour
             control[4].position = MousePosition.GetMousePosition();
             SetMiddleInBetween();
         }
-        RenderCurve();
+        else
+        {
         _dropDownSetup.SetPosition(MousePosition.GetCamera().WorldToScreenPoint( control[2].position));
+        }
+        RenderCurve();
 
         line.SetPosition(0, control[1].position);
         line.SetPosition(1, control[3].position);
@@ -75,6 +77,7 @@ public class Curve:MonoBehaviour
 
         control[4].position = _toID.gameObject.transform.position;
         control[4].SetParent(_toID.transform);
+        _dropDownSetup.Initialize(dropDownPrefab, UIManager.Instance.transform);
         _dropDownSetup.SetDropDownFromAndTo(_fromID.ID, _toID.ID);
     }
     
