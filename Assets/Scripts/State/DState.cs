@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class DState 
 {
-    public Status Status { get; private set; } //this will used for Automatas classes for later
+    public Status Status { get;  set; }
 
     private Dictionary<string,DState> _connections;    
 

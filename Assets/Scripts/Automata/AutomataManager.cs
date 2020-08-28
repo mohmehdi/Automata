@@ -19,6 +19,8 @@ public class AutomataManager : MonoBehaviour
         Instance = this;
         automataType = AutomataType.dfa;
         _machine = new DFA();
+
+        BuildStateEvents.Instance.OnChangeStatus += OnStateChangeStatus;
     }
     public void setAlphabet()
     {
@@ -32,5 +34,9 @@ public class AutomataManager : MonoBehaviour
     public bool TryDisConnect(int from, string tag, int to)
     {
         return _machine.TryDisConnect(from, tag, to);
+    }
+    private void OnStateChangeStatus(int id,Status status)
+    {
+
     }
 }

@@ -1,0 +1,29 @@
+﻿using UnityEngine;
+
+public class SetStateStatus : MonoBehaviour
+{
+    [SerializeField] private LayerMask stateLayer;
+    private void Update()
+    {
+        var detectedObject = StateDetector.DetectStateObject(stateLayer);
+        if (!detectedObject) return;
+
+        int id=-1;
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            id = detectedObject.GetComponent<StateObject>().ID;
+            BuildStateEvents.Instance.ChangeStatus(id, Status.START);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            id = detectedObject.GetComponent<StateObject>().ID;
+            BuildStateEvents.Instance.ChangeStatus(id, Status.NORMAL);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            id = detectedObject.GetComponent<StateObject>().ID;
+            BuildStateEvents.Instance.ChangeStatus(id, Status.FINAL);
+        }
+    }
+}

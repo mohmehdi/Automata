@@ -7,6 +7,7 @@ public class Curve:MonoBehaviour
 {
     [SerializeField] private Transform[] control;
     [SerializeField] private GameObject dropDownPrefab;
+    [SerializeField] private LineRenderer line;
     private DropDownSetup dropDownSetup;
 
     private LineRenderer _curve;
@@ -41,6 +42,9 @@ public class Curve:MonoBehaviour
         }
         RenderCurve();
         dropDownSetup.SetPosition(MousePosition.GetCamera().WorldToScreenPoint( GetMiddlePoint()));
+
+        line.SetPosition(0, control[1].position);
+        line.SetPosition(1, control[3].position);
     }
     private void RenderCurve()
     {

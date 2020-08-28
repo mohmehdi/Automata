@@ -4,6 +4,7 @@ using UnityEngine;
 public class ControlPointMovement : MonoBehaviour
 {
     private Vector3 _offset;
+
     private void Start()
     {
         ConnectionEvents.Instance.OnEditMode += OnActiveEditMode;

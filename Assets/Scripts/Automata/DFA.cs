@@ -39,4 +39,19 @@ class DFA : Automata
         throw new NotImplementedException();
     }
 
+    public override void ChangeStatus(int id, Status status)
+    {
+        if (status == Status.START)
+        {
+            foreach (var s in _states)
+            {
+                if (s.Value.Status == Status.START)
+                {
+                    s.Value.Status = Status.NORMAL;
+                    break;
+                }
+            }
+        }
+        _states[id].Status = status;
+    }
 }
