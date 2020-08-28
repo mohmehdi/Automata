@@ -32,18 +32,18 @@ class MyToggle : MonoBehaviour
         {
             res = AutomataManager.Instance.TryDisConnect(_myDrop._from, _tag, _myDrop._to);
         }
-        ChangeSkin(res);
+        ChangeSkin(res,flag);
     }
 
-    private void ChangeSkin(bool result)
+    private void ChangeSkin(bool result,bool flag)
     {
         ColorBlock c = _Toggle.colors;
         if (result)
         {
-
-            c.normalColor = Color.green;
-            c.selectedColor = Color.green;
-            _Text.color = Color.green;
+            Color col = flag ? Color.green : Color.yellow;
+            c.normalColor = col;
+            c.selectedColor = col;
+            _Text.color = col;
         }
         else
         {

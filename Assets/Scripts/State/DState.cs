@@ -35,6 +35,6 @@ public class DState
             _connections.Remove(tag);
             return true;
         }
-        return false;
+        return true;
     }
 }
