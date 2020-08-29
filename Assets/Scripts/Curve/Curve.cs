@@ -53,7 +53,11 @@ public class Curve:MonoBehaviour
     private void RenderCurve()
     {
         CurveLineRenderer.SetCurvePositions(_curve, control);
-        direction.position = control[4].position;
+
+        //set arrow position
+        direction.position = _curve.GetPosition(_curve.positionCount-1);
+
+        //set arrow rotation
         Vector2 v = (_curve.GetPosition(_curve.positionCount - 1) - _curve.GetPosition(_curve.positionCount-3)).normalized;
         float degree = Mathf.Rad2Deg * Mathf.Atan(v.y / v.x);
         degree = v.x < 0 ? degree + 180 : degree;

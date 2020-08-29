@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class StateObject : MonoBehaviour
 {
     [SerializeField] private Color[] colors = null;
+    [SerializeField] private RectTransform stateName=null; 
 
     [HideInInspector]
     public int ID;
@@ -12,12 +13,16 @@ public class StateObject : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private void Start()
     {
+
         ID = AutomataManager.CurrentStateId - 1;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         if (colors.Length <3)
         {
             Debug.LogError("Set State Colors");
         }
+
+        stateName.SetParent(UIManager.Instance.transform);
+        stateName.position = MousePosition.GetCamera().WorldToScreenPoint(transform.position);
         BuildStateEvents.Instance.OnChangeStatus += SetColor;
         BuildStateEvents.Instance.OnDeleteState += DestroyThis;
     }
@@ -45,6 +50,7 @@ public class StateObject : MonoBehaviour
     {
         if (id == ID)
         {
+            Destroy(stateName.gameObject);
             Destroy(gameObject);
         }
     }

@@ -4,12 +4,14 @@ using UnityEngine;
 class DFA : Automata
 {
     private readonly Dictionary<int,DState> _states;
+    private DState _start = null;
     //private DState _start;
     public DFA()
     {
         _states = new Dictionary<int, DState>();
         BuildStateEvents.Instance.OnCreateState += OnAddState;
         BuildStateEvents.Instance.OnDeleteState += OnDeleteState;
+        BuildStateEvents.Instance.OnChangeStatus += ChangeStatus;
     }
     protected override void OnAddState()
     {
@@ -20,6 +22,10 @@ class DFA : Automata
     }
     protected override void OnDeleteState(int id)
     {
+        foreach (var s in _states)
+        {
+            s.Value.DisConnect(_states[id]);
+        }
         _states.Remove(id);
     }
 
@@ -36,15 +42,15 @@ class DFA : Automata
         }
         return res;
     }
-    public override bool TryDisConnect(int from, string tag, int to)
+    public override bool TryDisConnect(int from, string tag)
     {
-        return _states[from].Disconnect(tag, _states[to]);
+        return _states[from].DisConnect(tag);
     }    
-
     public override void ChangeStatus(int id, Status status)
     {
         if (status == Status.START)
         {
+            _start = _states[id];
             foreach (var s in _states)
             {
                 if (s.Value.Status == Status.START)
@@ -55,5 +61,40 @@ class DFA : Automata
             }
         }
         _states[id].Status = status;
+    }
+    public bool CheckInput(string inp)
+    {
+        DState current = _start;
+        for (int i = 0; i < inp.Length; i++)
+        {
+            current = current.GetNextState(inp[i].ToString());
+        }
+        return current.Status == Status.FINAL ? true : false;
+    }
+    public void CheckForComplete()
+    {
+        string inp = "aaab";
+
+        bool hasStart = false;
+        var alphabet = AutomataManager.Alphabet;
+        foreach (var s in _states)
+        {
+            if (s.Value.Status==Status.START)
+            {
+                hasStart = true;
+            }
+            for (int i = 0; i < alphabet.Length; i++)
+            {
+                if (!s.Value.ContainTag(alphabet[i]))
+                {
+                    Debug.LogWarning("state :: " + s.Key + " :: doesnt contain :: " + alphabet[i]+" ::");
+                }
+            }
+        }
+        if(!hasStart)
+        Debug.LogWarning("DFA needs a 'Start' state");
+
+        Debug.Log("DFA " +(CheckInput(inp)?"Accept's   ":"Not Accept   ")+inp);
+
     }
 }

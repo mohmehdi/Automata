@@ -12,15 +12,20 @@ public class AutomataManager : MonoBehaviour
     public static string[] Alphabet;
     public static int CurrentStateId;
     private Automata _machine;
-
+    DFA d;
 
     private void Start()
     {
         Instance = this;
         automataType = AutomataType.dfa;
         _machine = new DFA();
+         d = (DFA)_machine;
 
-        BuildStateEvents.Instance.OnChangeStatus += OnStateChangeStatus;
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftAlt))
+        d.CheckForComplete();
     }
     public void setAlphabet()
     {
@@ -31,12 +36,9 @@ public class AutomataManager : MonoBehaviour
     {
         return _machine.TryConnect(from, tag, to);
     }
-    public bool TryDisConnect(int from, string tag, int to)
+    public bool TryDisConnect(int from, string tag)
     {
-        return _machine.TryDisConnect(from, tag, to);
+        return _machine.TryDisConnect(from, tag);
     }
-    private void OnStateChangeStatus(int id,Status status)
-    {
 
-    }
 }

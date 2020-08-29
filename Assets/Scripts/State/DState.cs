@@ -28,7 +28,7 @@ public class DState
         _connections.Add(tag,to);
         return true;
     }
-    public bool Disconnect(string tag, DState to)
+    public bool DisConnect(string tag)
     {
         if (_connections.ContainsKey(tag))
         {
@@ -36,5 +36,22 @@ public class DState
             return true;
         }
         return true;
+    }
+    public void DisConnect(DState to)
+    {
+        if (to == this)
+            return;
+
+        foreach (var s in _connections)
+        {
+            if (s.Value == to)
+            {
+                _connections.Remove(s.Key);
+            }
+        }
+    }
+    public bool ContainTag(string tag)
+    {
+        return _connections.ContainsKey(tag);
     }
 }

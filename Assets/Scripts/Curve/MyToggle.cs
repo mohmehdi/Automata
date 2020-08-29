@@ -8,6 +8,7 @@ class MyToggle : MonoBehaviour
     private string _tag;
     private Text _Text;
     private Toggle _Toggle;
+    private bool _isCorrect = false;
     private void Start()
     {
         _Text = GetComponentInChildren<Text>();
@@ -27,10 +28,17 @@ class MyToggle : MonoBehaviour
         if (flag)
         {
              res = AutomataManager.Instance.TryConnect(_myDrop._from, _tag, _myDrop._to);
+            _isCorrect = res;
         }
         else
         {
-            res = AutomataManager.Instance.TryDisConnect(_myDrop._from, _tag, _myDrop._to);
+            if (_isCorrect)
+                res = AutomataManager.Instance.TryDisConnect(_myDrop._from, _tag);
+            else
+            {
+                ChangeSkin(true, flag);
+                return;
+            }
         }
         ChangeSkin(res,flag);
     }

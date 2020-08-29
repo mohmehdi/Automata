@@ -31,8 +31,10 @@ class MyDropDown : MonoBehaviour
         var alphabet = AutomataManager.Alphabet;
 
         toggleHeight = togglePrefab.GetComponent<RectTransform>().rect.height;
-        RectTransform rect = content.GetComponent<RectTransform>();
-        rect.rect.Set(rect.rect.x, rect.rect.y, rect.rect.width, alphabet.Length * toggleHeight);
+        content.GetComponent<RectTransform>().sizeDelta = new Vector2(100,toggleHeight * alphabet.Length);
+
+       // rect.rect.Set(rect.rect.x, rect.rect.y, rect.rect.width, alphabet.Length * toggleHeight);
+
         for (int i = 0; i < alphabet.Length; i++)
         {
             GameObject toggleObj = Instantiate(togglePrefab);
