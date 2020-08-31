@@ -48,7 +48,7 @@ class DFA : Automata
     }    
     public override void ChangeStatus(int id, Status status)
     {
-        if (status == Status.START)
+        if (status == Status.START || status == Status.STARTANDFINAL)
         {
             _start = _states[id];
             foreach (var s in _states)
@@ -56,6 +56,11 @@ class DFA : Automata
                 if (s.Value.Status == Status.START)
                 {
                     s.Value.Status = Status.NORMAL;
+                    break;
+                }
+                if (s.Value.Status == Status.STARTANDFINAL)
+                {
+                    s.Value.Status = Status.FINAL;
                     break;
                 }
             }
@@ -69,7 +74,7 @@ class DFA : Automata
         {
             current = current.GetNextState(inp[i].ToString());
         }
-        return current.Status == Status.FINAL ? true : false;
+        return current.Status == Status.FINAL ? true : current.Status == Status.STARTANDFINAL ? true : false;
     }
     public void CheckForComplete()
     {

@@ -9,8 +9,9 @@ public class MultilineInputField : MonoBehaviour
 {
     private const int ITEM_HEIGHT = 35;
 
-    [SerializeField] GameObject inputFieldPrefab;
-    [SerializeField] RectTransform addButtonRect;
+    [SerializeField] bool IsAcceptList = true;
+    [SerializeField] GameObject inputFieldPrefab=null;
+    [SerializeField] RectTransform addButtonRect=null;
     private ScrollRect _scrollView;
     private List<RectTransform> _itemsTransform;
     public List<string> _inputs { get; private set; }
@@ -27,7 +28,7 @@ public class MultilineInputField : MonoBehaviour
     public void AddItem()
     {
         var ItemRect = Instantiate(inputFieldPrefab,_scrollView.content).GetComponent<RectTransform>();
-        ItemRect.GetComponent<InputFieldIndex>().index = _itemsTransform.Count;
+        ItemRect.GetComponent<InputFieldIndex>().Initialize(_itemsTransform.Count,IsAcceptList);
 
 
         //seting new item position

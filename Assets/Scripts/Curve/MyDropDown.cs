@@ -37,9 +37,8 @@ class MyDropDown : MonoBehaviour
 
         for (int i = 0; i < alphabet.Length; i++)
         {
-            GameObject toggleObj = Instantiate(togglePrefab);
-            toggleObj.transform.SetParent(content);
-            toggleObj.GetComponent<RectTransform>().localPosition = new Vector3(0, -(i * toggleHeight + 4));
+            GameObject toggleObj = Instantiate(togglePrefab,content);
+            toggleObj.GetComponent<RectTransform>().localPosition = new Vector3(3, -(i * toggleHeight + 4));
             toggleObj.GetComponent<MyToggle>().Set(this, alphabet[i]);
         }
     }

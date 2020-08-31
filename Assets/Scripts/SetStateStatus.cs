@@ -25,5 +25,10 @@ public class SetStateStatus : MonoBehaviour
             id = detectedObject.GetComponent<StateObject>().ID;
             BuildStateEvents.Instance.ChangeStatus(id, Status.FINAL);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            id = detectedObject.GetComponent<StateObject>().ID;
+            BuildStateEvents.Instance.ChangeStatus(id, Status.STARTANDFINAL);
+        }
     }
 }

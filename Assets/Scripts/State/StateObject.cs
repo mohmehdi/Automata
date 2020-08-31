@@ -4,19 +4,20 @@ using UnityEngine.UI;
 
 public class StateObject : MonoBehaviour
 {
-    [SerializeField] private Color[] colors = null;
+    [SerializeField] private Sprite[] sprites = null;
     [SerializeField] private RectTransform stateName=null; 
 
     [HideInInspector]
     public int ID;
 
+    private Status _status=Status.NORMAL;
     private SpriteRenderer _spriteRenderer;
     private void Start()
     {
 
         ID = AutomataManager.CurrentStateId - 1;
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        if (colors.Length <3)
+        if (sprites.Length <4)
         {
             Debug.LogError("Set State Colors");
         }
@@ -28,22 +29,29 @@ public class StateObject : MonoBehaviour
     }
     public void SetColor(int id, Status status)
     {
-        if (status ==Status.START && _spriteRenderer.color == colors[0])
-            _spriteRenderer.color = colors[1];
+        if ((status ==Status.START|| status == Status.STARTANDFINAL) && _status == Status.START )
+            _spriteRenderer.sprite = sprites[1];
+
+        if ((status == Status.START || status == Status.STARTANDFINAL) && _status == Status.STARTANDFINAL)
+            _spriteRenderer.sprite = sprites[2];
 
         if (id != ID) return;
 
         if (status == Status.NORMAL)
         {
-            _spriteRenderer.color = colors[1];
+            _spriteRenderer.sprite = sprites[1];
         }
         else if (status == Status.START)
         {
-            _spriteRenderer.color = colors[0];
+            _spriteRenderer.sprite = sprites[0];
         }
         else if (status == Status.FINAL)
         {
-            _spriteRenderer.color = colors[2];
+            _spriteRenderer.sprite = sprites[2];
+        }
+        else if (status == Status.STARTANDFINAL)
+        {
+            _spriteRenderer.sprite = sprites[3];
         }
     }
     private void DestroyThis(int id)

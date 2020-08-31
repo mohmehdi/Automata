@@ -14,6 +14,7 @@ public class InputFieldIndex : MonoBehaviour
 
     private MultilineInputField parent;
     public int index=-1;
+    public bool isAcceptInput = true;
     private void Start()
     {
         parent = GetComponentInParent<MultilineInputField>();
@@ -24,12 +25,17 @@ public class InputFieldIndex : MonoBehaviour
         parent.OnDeleteItem += ReduceIndex;
         AutomataManager.Instance.OnCheckInput += Check;
     }
+    public void Initialize(int i , bool isAccept)
+    {
+        index = i;
+        isAcceptInput = isAccept;
+    }
 
     private void Check(int i,bool result,bool mustAccept)
     {
-        if (i != index) return;
+        if (i != index || mustAccept != isAcceptInput) return;
 
-        inputField.image.color = mustAccept ? result ? isOk : notOk : result ? notOk : isOk;
+        inputField.image.color = mustAccept ? (result ? isOk : notOk) : (result ? notOk : isOk);
     }
     public void ReduceIndex(int i)
     {

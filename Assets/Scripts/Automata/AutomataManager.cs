@@ -30,15 +30,20 @@ public class AutomataManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftAlt))
             d.CheckForComplete();
-        if (Input.GetKeyDown(KeyCode.CapsLock))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
-            List<string> vs = UIManager.Instance.GetInputs();
+            List<string> vs = UIManager.Instance.GetInputs(true);
             for (int i = 0; i < vs.Count; i++)
             {
                 CheckInput(i, d.CheckInput(vs[i]), true);
             }
+            vs = UIManager.Instance.GetInputs(false);
+            for (int i = 0; i < vs.Count; i++)
+            {
+                CheckInput(i, d.CheckInput(vs[i]), false);
+                Debug.Log(vs[i]);
+            }
         }
-
     }
 
     public void CheckInput(int index,bool result,bool mustAccept)
