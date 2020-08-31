@@ -7,6 +7,10 @@ public class InputFieldIndex : MonoBehaviour
 {
     [SerializeField] InputField inputField;
     [SerializeField] Button removeButton;
+    [SerializeField] Text textField;
+    [SerializeField] Color isOk;
+    [SerializeField] Color notOk;
+
 
     private MultilineInputField parent;
     public int index=-1;
@@ -14,12 +18,19 @@ public class InputFieldIndex : MonoBehaviour
     {
         parent = GetComponentInParent<MultilineInputField>();
 
-        inputField.onEndEdit.AddListener(delegate { parent.ChangeInput(inputField); });
+        inputField.onEndEdit.AddListener(delegate { parent.ChangeInput(inputField,index); });
         removeButton.onClick.AddListener(delegate { parent.DeleteItem(index); });
 
         parent.OnDeleteItem += ReduceIndex;
+        AutomataManager.Instance.OnCheckInput += Check;
     }
 
+    private void Check(int i,bool result,bool mustAccept)
+    {
+        if (i != index) return;
+
+        inputField.image.color = mustAccept ? result ? isOk : notOk : result ? notOk : isOk;
+    }
     public void ReduceIndex(int i)
     {
         if (i<index)
@@ -29,6 +40,7 @@ public class InputFieldIndex : MonoBehaviour
     }
     private void OnDestroy()
     {
+        AutomataManager.Instance.OnCheckInput -= Check;
         parent.OnDeleteItem -= ReduceIndex;
     }
 }

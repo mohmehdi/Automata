@@ -13,7 +13,7 @@ public class MultilineInputField : MonoBehaviour
     [SerializeField] RectTransform addButtonRect;
     private ScrollRect _scrollView;
     private List<RectTransform> _itemsTransform;
-    private List<string> _inputs;
+    public List<string> _inputs { get; private set; }
 
     public Action<int> OnDeleteItem;
 
@@ -21,6 +21,7 @@ public class MultilineInputField : MonoBehaviour
     {
         _scrollView = GetComponentInChildren<ScrollRect>();
         _itemsTransform = new List<RectTransform>();
+        _inputs = new List<string>();
     }
 
     public void AddItem()
@@ -32,6 +33,8 @@ public class MultilineInputField : MonoBehaviour
         //seting new item position
         ItemRect.localPosition += Vector3.down * ITEM_HEIGHT * _itemsTransform.Count ;
         _itemsTransform.Add(ItemRect);
+        string s = "";
+        _inputs.Add(s);
 
         //set addbutton transform
         addButtonRect.localPosition += Vector3.down * ITEM_HEIGHT;
@@ -40,6 +43,7 @@ public class MultilineInputField : MonoBehaviour
         _scrollView.content.sizeDelta = new Vector2(0,(_itemsTransform.Count + 1) * ITEM_HEIGHT);
     }
 
+
     public void DeleteItem(int index)
     {
         Debug.Log($"Item  {index} Deleted ");
@@ -47,18 +51,19 @@ public class MultilineInputField : MonoBehaviour
         int i;
         for (i = index; i < _itemsTransform.Count - 1; i++)
         {
+            _inputs[i] = _inputs[i + 1];
             _itemsTransform[i] = _itemsTransform[i + 1];
             _itemsTransform[i].localPosition += Vector3.up * ITEM_HEIGHT ;
         }
         _itemsTransform.RemoveAt(i);
+        _inputs.RemoveAt(i);
 
         addButtonRect.localPosition += Vector3.up * ITEM_HEIGHT;
         OnDeleteItem?.Invoke(index);
     }
 
-    public void ChangeInput(InputField input)
+    public void ChangeInput(InputField input,int index)
     {
-        Debug.Log(input.text);
+        _inputs[index] = input.text;
     }
-
 }

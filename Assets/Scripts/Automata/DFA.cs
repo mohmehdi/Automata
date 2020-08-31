@@ -73,7 +73,6 @@ class DFA : Automata
     }
     public void CheckForComplete()
     {
-        string inp = "aaab";
 
         bool hasStart = false;
         var alphabet = AutomataManager.Alphabet;
@@ -93,8 +92,6 @@ class DFA : Automata
         }
         if(!hasStart)
         Debug.LogWarning("DFA needs a 'Start' state");
-
-        Debug.Log("DFA " +(CheckInput(inp)?"Accept's   ":"Not Accept   ")+inp);
 
     }
 }
