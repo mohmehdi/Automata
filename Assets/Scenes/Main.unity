@@ -1168,6 +1168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 519420031}
+  speed: 0.02
+  mult: 0.5
+  multSize: 0.5
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -2859,7 +2862,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1511868977}
   m_HandleRect: {fileID: 1511868976}
   m_Direction: 2
-  m_Value: 1.0000021
+  m_Value: 1.0000044
   m_Size: 0.96435744
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3883,7 +3886,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1394735111}
   m_Direction: 2
   m_Value: 1.0000023
-  m_Size: 0.96454674
+  m_Size: 0.9646215
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

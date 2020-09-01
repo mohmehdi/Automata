@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildStateTrigger : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class BuildStateTrigger : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            GameObject go = StateDetector.DetectStateObject(stateLayer);
+            bool flag = EventSystem.current.IsPointerOverGameObject();
+            if(!flag && !go)
             BuildStateEvents.Instance.CreateState();
         }
         if (Input.GetKeyDown(KeyCode.X))

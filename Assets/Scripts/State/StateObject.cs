@@ -22,7 +22,7 @@ public class StateObject : MonoBehaviour
             Debug.LogError("Set State Colors");
         }
 
-        stateName.SetParent(UIManager.Instance.transform);
+        stateName.SetParent(UIManager.Instance.transform,false);
         stateName.position = MousePosition.GetCamera().WorldToScreenPoint(transform.position);
         BuildStateEvents.Instance.OnChangeStatus += SetColor;
         BuildStateEvents.Instance.OnDeleteState += DestroyThis;

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SetStateStatus : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class SetStateStatus : MonoBehaviour
     {
         var detectedObject = StateDetector.DetectStateObject(stateLayer);
         if (!detectedObject) return;
+
+        if (EventSystem.current.currentSelectedGameObject)return ;
 
         int id=-1;
 

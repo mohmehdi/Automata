@@ -3,15 +3,16 @@ using UnityEditor;
 using UnityEngine;
 public class ControlPointMovement : MonoBehaviour
 {
+    public static bool viewMode = false;
     private Vector3 _offset;
 
     private void Start()
     {
         ConnectionEvents.Instance.OnEditMode += OnActiveEditMode;
     }
-    private void OnActiveEditMode(bool flag)
+    private void OnActiveEditMode(bool flag,bool view)
     {
-        gameObject.SetActive(flag);
+        gameObject.SetActive(flag&view);
     }
     private void OnMouseDown()
     {

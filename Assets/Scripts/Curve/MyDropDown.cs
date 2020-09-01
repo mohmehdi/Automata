@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 class MyDropDown : MonoBehaviour
 {
@@ -17,8 +18,21 @@ class MyDropDown : MonoBehaviour
         BuildStateEvents.Instance.OnDeleteState += DestroyThisWhenStateDeleted;
 
     }
-    private void OnActiveEditMode(bool flag)
+    private void OnActiveEditMode(bool flag,bool view)
     {
+        if (!view)
+        {
+            Color c = optionsMenu.GetComponent<Image>().color;
+            c = new Color(c.r, c.g, c.b, 0);
+            optionsMenu.GetComponent<Image>().color = c;
+        }
+        else
+        {
+            Color c = optionsMenu.GetComponent<Image>().color;
+            c = new Color(c.r, c.g, c.b, 1);
+            optionsMenu.GetComponent<Image>().color = c;
+        }
+        if(view)
         gameObject.SetActive(!flag);
     }
     private void OnDestroy()

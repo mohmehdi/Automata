@@ -19,7 +19,11 @@ public class ConnectionTrigger : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            ConnectionEvents.Instance.ActiveEditMode();
+            ConnectionEvents.Instance.ActiveEditMode(true);
+        }
+        if (Input.GetKeyDown(KeyCode.CapsLock))
+        {
+            ConnectionEvents.Instance.ActiveEditMode(false);
         }
     }
     private void SelectFirst()
