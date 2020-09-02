@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class AutomataManager : MonoBehaviour
     public static char[] machineAlphabet;
     public static int CurrentStateId;
 
+    private List<Vector2Int> _connections;
     private Automata _machine;
     DFA d;
 
@@ -27,32 +29,51 @@ public class AutomataManager : MonoBehaviour
 
     private void Start()
     {
+        _connections = new List<Vector2Int>();
         Instance = this;
         automataType = AutomataType.dfa;
         _machine = new DFA();
          d = (DFA)_machine;
 
+        ConnectionEvents.Instance.OnSecondStateSelected += UpdateLocalConnections;
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftAlt))
             d.CheckForComplete();
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            List<string> vs = UIManager.Instance.GetInputs(true);
-            for (int i = 0; i < vs.Count; i++)
-            {
-                CheckInput(i, d.CheckInput(vs[i]), true);
-            }
-            vs = UIManager.Instance.GetInputs(false);
-            for (int i = 0; i < vs.Count; i++)
-            {
-                CheckInput(i, d.CheckInput(vs[i]), false);
-                Debug.Log(vs[i]);
-            }
-        }
     }
 
+    public void CheckStrings()
+    {
+        d.CheckForComplete();
+
+        List<string> vs = UIManager.Instance.GetInputs(true);
+        for (int i = 0; i < vs.Count; i++)
+        {
+            CheckInput(i, d.CheckInput(vs[i]), true);
+        }
+        vs = UIManager.Instance.GetInputs(false);
+        for (int i = 0; i < vs.Count; i++)
+        {
+            CheckInput(i, d.CheckInput(vs[i]), false);
+            Debug.Log(vs[i]);
+        }
+    }
+    private void UpdateLocalConnections()
+    {
+        _connections.Add(new Vector2Int( ConnectionEvents.Instance.firstStateID.ID, ConnectionEvents.Instance.secondStateID.ID));
+    }
+    public bool IsConnectionPossible(int from,int to) //this if just for Deterministics
+    {
+        foreach (var vec in _connections)
+        {
+            if (vec.x ==from && vec.y == to)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     public void CheckInput(int index,bool result,bool mustAccept)
     {
         OnCheckInput?.Invoke(index,result, mustAccept);
@@ -67,9 +88,9 @@ public class AutomataManager : MonoBehaviour
     {
         return _machine.TryConnect(from, tag, to);
     }
-    public bool TryDisConnect(int from, string tag)
+    public void DisConnectAll(int from,int to)
     {
-        return _machine.TryDisConnect(from, tag);
+         _machine.DisConnectAll(from,to);
     }
 
 }

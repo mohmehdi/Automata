@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BuildStateEvents : MonoBehaviour
@@ -23,7 +22,7 @@ public class BuildStateEvents : MonoBehaviour
     public void DeleteState(int id)
     {
         OnDeleteState?.Invoke(id);
-        Debug.Log("State << " + id + " >> Deleted");
+       // Debug.Log("State << " + id + " >> Deleted");
     }
     public void ChangeStatus(int id,Status status)
     {

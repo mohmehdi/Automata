@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Net;
 using UnityEngine;
 
 public class ConnectionTrigger : MonoBehaviour
 {
     [SerializeField] private LayerMask statesLayer=0;//TODO: this shit dosent working 
-
+    [SerializeField] private KeyCode viewKey;
     private bool _isFirstSelected=false;
 
     private void Update()
@@ -17,13 +18,9 @@ public class ConnectionTrigger : MonoBehaviour
         {
             SelectSecond();
         }
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(viewKey))
         {
-            ConnectionEvents.Instance.ActiveEditMode(true);
-        }
-        if (Input.GetKeyDown(KeyCode.CapsLock))
-        {
-            ConnectionEvents.Instance.ActiveEditMode(false);
+            ConnectionEvents.Instance.ActiveEditMode();
         }
     }
     private void SelectFirst()
@@ -40,7 +37,7 @@ public class ConnectionTrigger : MonoBehaviour
         ConnectionEvents.Instance.firstStateID = first_id;
         ConnectionEvents.Instance.FirstStateSelected();
         _isFirstSelected = true;
-        Debug.Log("first state selected");
+        //Debug.Log("first state selected");
     }
     private void SelectSecond()
     {
@@ -63,10 +60,17 @@ public class ConnectionTrigger : MonoBehaviour
             _isFirstSelected = false;
             return;
         }
+        if (!AutomataManager.Instance.IsConnectionPossible(ConnectionEvents.Instance.firstStateID.ID,second_id.ID)) //TODO : this isnt working check this another way
+        {
+            ConnectionEvents.Instance.SecondStateSelectionCanceled();
+            Debug.Log("Current Connection exists");
+            _isFirstSelected = false;
+            return;
+        }
         ConnectionEvents.Instance.secondStateID = second_id;
         ConnectionEvents.Instance.SecondStateSelected();
         _isFirstSelected = false;
-        Debug.Log("second selected");
+        //Debug.Log("second selected");
     }
 
 }

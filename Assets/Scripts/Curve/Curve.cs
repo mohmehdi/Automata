@@ -6,11 +6,11 @@ using UnityEngine.UIElements;
 public class Curve:MonoBehaviour
 {
     [SerializeField] private Transform[] control = null;
-    [SerializeField] private GameObject dropDownPrefab =null;
+    [SerializeField] private GameObject syntaxyInptField =null;
     [SerializeField] private LineRenderer line =null;
     [SerializeField] private Transform direction = null;
 
-    private DropDownSetup _dropDownSetup;
+    private SyntaxyInputFieldInitializer _inputFieldInit;
     private LineRenderer _curve;
     private StateObject _fromID = null;
     private StateObject _toID = null;
@@ -22,7 +22,7 @@ public class Curve:MonoBehaviour
     /// </summary>
     private void Start()
     {
-        _dropDownSetup = GetComponent<DropDownSetup>();
+        _inputFieldInit = GetComponent<SyntaxyInputFieldInitializer>();
         _curve = GetComponent<LineRenderer>();
         for (int i = 0; i < control.Length; i++)
         {
@@ -43,7 +43,7 @@ public class Curve:MonoBehaviour
         }
         else
         {
-        _dropDownSetup.SetPosition(MousePosition.GetCamera().WorldToScreenPoint( control[2].position));
+        _inputFieldInit.SetPosition( control[2].position);
         }
         RenderCurve();
 
@@ -81,14 +81,10 @@ public class Curve:MonoBehaviour
 
         control[4].position = _toID.gameObject.transform.position;
         control[4].SetParent(_toID.transform);
-        _dropDownSetup.Initialize(dropDownPrefab, UIManager.Instance.transform);
-        _dropDownSetup.SetDropDownFromAndTo(_fromID.ID, _toID.ID);
+        _inputFieldInit.Initialize(syntaxyInptField);
+        _inputFieldInit.SetInputFieldOptions(_fromID.ID, _toID.ID);
     }
     
-    //private Vector2 GetMiddlePoint()
-    //{
-    //    return _curve.GetPosition(_curve.positionCount / 2);
-    //}
     private void DeleteWhenStateDeleted(int id)
     {
         if (id == _fromID.ID || id == _toID.ID)

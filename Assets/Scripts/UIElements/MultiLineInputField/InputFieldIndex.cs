@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class InputFieldIndex : MonoBehaviour
 {
-    [SerializeField] InputField inputField;
-    [SerializeField] Button removeButton;
-    [SerializeField] Text textField;
-    [SerializeField] Color isOk;
-    [SerializeField] Color notOk;
+    [SerializeField] InputField inputField=null;
+    [SerializeField] Button removeButton=null;
+    [SerializeField] Text textField=null;
+    [SerializeField] Color isOk=Color.white;
+    [SerializeField] Color notOk=Color.white;
 
 
     private MultilineInputField parent;

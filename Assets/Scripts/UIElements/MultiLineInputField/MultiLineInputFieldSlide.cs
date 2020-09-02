@@ -1,16 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
+
 
 public class MultiLineInputFieldSlide : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    [SerializeField] RectTransform buttonPos; //position of Kesho button 
-    [SerializeField] RectTransform button;
+    [SerializeField] private float speed = 1;
+    [SerializeField] RectTransform buttonPos=null; //position of Kesho button 
+    [SerializeField] RectTransform button=null;
     [SerializeField] private bool isOn = true;
-    [SerializeField] KeyCode switchKey;
+    [SerializeField] KeyCode switchKey=KeyCode.None;
 
     private RectTransform _rectTransform;
 

@@ -20,24 +20,12 @@ public class AlphabetInputValueControler : MonoBehaviour
         string input ="";
         foreach (var ch in InputField.text)
         {
-            if (char.IsLetter(ch) && !input.Contains(ch.ToString()))
+            if ((char.IsDigit(ch) || char.IsLetter(ch)) && !input.Contains(ch.ToString()))
             {
                 input += ch;
             }
         }
         InputField.text = input;
     }
-    public void CheckInputSyntax()
-    {
-        AutomataType type = AutomataManager.automataType;
-
-        if (type == AutomataType.dfa) //Syntax for DFA is a Character
-        {
-
-        }
-        if (type == AutomataType.pda)
-        {
-
-        }
-    }
+   
 }

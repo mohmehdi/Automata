@@ -18,16 +18,18 @@ class DFA : Automata
         int id = AutomataManager.CurrentStateId;
         DState newState = new DState();
         _states.Add(id,newState);
-        Debug.Log("State " + id + " added");
+        //Debug.Log("State " + id + " added");
     }
     protected override void OnDeleteState(int id)
     {
         foreach (var s in _states)
         {
-            s.Value.DisConnect(_states[id]);
+            s.Value.DisConnectAll(_states[id]);
         }
         _states.Remove(id);
     }
+
+
 
     public override bool TryConnect(int from , string tag ,int to)
     {
@@ -42,9 +44,17 @@ class DFA : Automata
         }
         return res;
     }
-    public override bool TryDisConnect(int from, string tag)
+    public override void DisConnectAll(int from,int to)
     {
-        return _states[from].DisConnect(tag);
+        if (!_states.ContainsKey(from))
+        {
+            Debug.Log("Not Found");
+        }
+        if (!_states.ContainsKey(to))
+        {
+            Debug.Log("Not Found");
+        }
+        _states[from].DisConnectAll(_states[to]);
     }    
     public override void ChangeStatus(int id, Status status)
     {
@@ -72,6 +82,7 @@ class DFA : Automata
         DState current = _start;
         for (int i = 0; i < inp.Length; i++)
         {
+            if (current == null) return false;// TODO :error here
             current = current.GetNextState(inp[i].ToString());
         }
         return current.Status == Status.FINAL ? true : current.Status == Status.STARTANDFINAL ? true : false;

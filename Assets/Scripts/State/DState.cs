@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 /// <summary>
 /// D is Short for Deterministic
@@ -16,7 +17,11 @@ public class DState
     }
     public DState GetNextState(string tag)
     {
-        return _connections[tag];
+        if (_connections.ContainsKey(tag))
+        {
+            return _connections[tag];
+        }
+        return null;
     }
     public bool TryConnect(string tag, DState to)
     {
@@ -28,26 +33,11 @@ public class DState
         _connections.Add(tag,to);
         return true;
     }
-    public bool DisConnect(string tag)
+    public void DisConnectAll(DState to)
     {
-        if (_connections.ContainsKey(tag))
+        foreach (var item in _connections.Where(kvp => kvp.Value == to).ToList())
         {
-            _connections.Remove(tag);
-            return true;
-        }
-        return true;
-    }
-    public void DisConnect(DState to)
-    {
-        if (to == this)
-            return;
-
-        foreach (var s in _connections)
-        {
-            if (s.Value == to)
-            {
-                _connections.Remove(s.Key);
-            }
+            _connections.Remove(item.Key);
         }
     }
     public bool ContainTag(string tag)

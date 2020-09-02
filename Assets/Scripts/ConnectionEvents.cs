@@ -9,7 +9,7 @@ public class ConnectionEvents : MonoBehaviour
     public StateObject secondStateID;
     private bool isEditMode = false;
 
-    public event Action<bool,bool> OnEditMode;
+    public event Action<bool> OnEditMode;
     public event Action OnFirstStateSelected;
     public event Action OnSecondStateSelected;
     public event Action OnSecondStateSelectionCanceled;
@@ -29,10 +29,9 @@ public class ConnectionEvents : MonoBehaviour
     {
         OnSecondStateSelectionCanceled?.Invoke();
     }
-    public void ActiveEditMode(bool view)
+    public void ActiveEditMode()
     {
-        OnEditMode?.Invoke(isEditMode,view);
-        if(view)
-            isEditMode = !isEditMode;
+        OnEditMode?.Invoke(isEditMode);
+        isEditMode = !isEditMode;
     }
 }

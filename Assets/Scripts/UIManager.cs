@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +8,11 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
     [SerializeField] private MultilineInputField MultiField_Accepts;
-    [SerializeField] private MultilineInputField MultiField_NotAccepts;
+    [SerializeField] private MultilineInputField MultiField_NotAccepts=null;
     [SerializeField] private InputField languageAlphabet = null;
     [SerializeField] private InputField machineAlphabet = null;
     [SerializeField] private Dropdown typeSelection = null;
-
+    [SerializeField] private Text alphabetView = null;
     [SerializeField] private GameObject panel = null;
     [SerializeField] private GameObject startButton = null;
 
@@ -68,7 +69,12 @@ public class UIManager : MonoBehaviour
     public char[] GetLanguageAlphabet()
     {
         _alphabet = languageAlphabet.text.ToCharArray();
-
+        string s = "";
+        for (int i = 0; i < _alphabet.Length; i++)
+        {
+            s+= _alphabet[i].ToString()+(i==_alphabet.Length-1? "" :  " , ");
+        }
+        alphabetView.text = "Σ = { " + s +" } ";
         if (languageAlphabet.text.Length < 1)
             return null;
 

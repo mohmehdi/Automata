@@ -3,6 +3,8 @@ using UnityEditor;
 using UnityEngine;
 public class ControlPointMovement : MonoBehaviour
 {
+    [SerializeField] private GameObject controlPointsParent = null;
+
     public static bool viewMode = false;
     private Vector3 _offset;
 
@@ -10,9 +12,9 @@ public class ControlPointMovement : MonoBehaviour
     {
         ConnectionEvents.Instance.OnEditMode += OnActiveEditMode;
     }
-    private void OnActiveEditMode(bool flag,bool view)
+    private void OnActiveEditMode(bool flag)
     {
-        gameObject.SetActive(flag&view);
+        controlPointsParent.SetActive(flag);
     }
     private void OnMouseDown()
     {
