@@ -80,7 +80,7 @@ class DFA : Automata
     {
 
         bool hasStart = false;
-        var alphabet = AutomataManager.Alphabet;
+        var alphabet = AutomataManager.inputAlphabet;
         foreach (var s in _states)
         {
             if (s.Value.Status==Status.START)
@@ -89,7 +89,7 @@ class DFA : Automata
             }
             for (int i = 0; i < alphabet.Length; i++)
             {
-                if (!s.Value.ContainTag(alphabet[i]))
+                if (!s.Value.ContainTag(alphabet[i].ToString()))
                 {
                     Debug.LogWarning("state :: " + s.Key + " :: doesnt contain :: " + alphabet[i]+" ::");
                 }

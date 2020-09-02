@@ -42,7 +42,7 @@ class MyDropDown : MonoBehaviour
     }
     private void SetOptions()//can take a int to set diffrent inputs from automatas
     {
-        var alphabet = AutomataManager.Alphabet;
+        var alphabet = AutomataManager.inputAlphabet;
 
         toggleHeight = togglePrefab.GetComponent<RectTransform>().rect.height;
         content.GetComponent<RectTransform>().sizeDelta = new Vector2(0,toggleHeight * alphabet.Length);
@@ -53,7 +53,7 @@ class MyDropDown : MonoBehaviour
         {
             GameObject toggleObj = Instantiate(togglePrefab,content);
             toggleObj.GetComponent<RectTransform>().localPosition = new Vector3(3, -(i * toggleHeight + 4));
-            toggleObj.GetComponent<MyToggle>().Set(this, alphabet[i]);
+            toggleObj.GetComponent<MyToggle>().Set(this, alphabet[i].ToString());
         }
     }
     public void TurnMenuOnOff()

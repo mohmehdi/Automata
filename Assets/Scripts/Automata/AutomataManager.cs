@@ -8,14 +8,21 @@ public enum AutomataType
 }
 public class AutomataManager : MonoBehaviour
 {
-
-    public static AutomataManager Instance;
+    //'ƛ'
+    public static AutomataManager Instance; 
     public static AutomataType automataType;
-    public static string[] Alphabet;
+    public static char[] inputAlphabet;
+    public static char[] machineAlphabet;
     public static int CurrentStateId;
+
     private Automata _machine;
     DFA d;
 
+    /// <summary>
+    /// index of input string from two lists
+    /// result of checking that string
+    /// is that string from accept list of not
+    /// </summary>
     public Action<int,bool, bool> OnCheckInput;
 
     private void Start()
@@ -53,8 +60,8 @@ public class AutomataManager : MonoBehaviour
 
     public void setAlphabet()
     {
-        string[] alphabet = UIManager.Instance.get_alphabet_from_field();
-        Alphabet = alphabet;
+        char[] alphabet = UIManager.Instance.GetLanguageAlphabet();
+        inputAlphabet = alphabet;
     }
     public bool TryConnect(int from , string tag , int to) 
     {

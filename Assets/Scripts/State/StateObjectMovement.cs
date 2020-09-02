@@ -7,16 +7,14 @@ public class StateObjectMovement : MonoBehaviour
     [SerializeField]private RectTransform stateName = null;
     private Vector3 _offset; //offset from where we click to objects center
 
-
-
     private void OnMouseDown()
     {
+        stateName.position = MousePosition.GetCamera().WorldToScreenPoint(transform.position);
         _offset = transform.position- MousePosition.GetMousePosition();
     }
 
     private void OnMouseDrag()
     {
-        stateName.position = MousePosition.GetCamera().WorldToScreenPoint(transform.position);
         transform.position = MousePosition.GetMousePosition()+_offset;
     }
 }
