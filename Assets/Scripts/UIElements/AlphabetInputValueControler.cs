@@ -7,14 +7,6 @@ using UnityEngine.UI;
 public class AlphabetInputValueControler : MonoBehaviour
 {
     [SerializeField] InputField InputField;
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Tab))
-    //    {
-    //        if (EventSystem.current.currentSelectedGameObject == InputField.gameObject)
-    //            InputField.text += "ƛ";
-    //    }
-    //}
     public void CheckAlpabetInput()
     {
         string input ="";

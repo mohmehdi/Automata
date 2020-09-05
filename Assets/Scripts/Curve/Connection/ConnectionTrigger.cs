@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConnectionTrigger : MonoBehaviour
 {
-    [SerializeField] private LayerMask statesLayer=0;//TODO: this shit dosent working 
+    [SerializeField] private LayerMask statesLayer=0;
     [SerializeField] private KeyCode viewKey;
     private bool _isFirstSelected=false;
 

@@ -1,20 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraZoom : MonoBehaviour
 {
-    [SerializeField] private Camera cam;
     [SerializeField] private float speed = 1;
-    [SerializeField] private float mult = 1;
+    [SerializeField] private float multiplier = 1;
 
-
+    private Camera _camera;
     private float scrollAmount = 0;
 
-
+    private void Start()
+    {
+        _camera = GetComponent<Camera>();
+    }
     private void Update()
     {
-
         if (Mathf.Abs(Input.mouseScrollDelta.y)>0)
         {
             scrollAmount = -Input.mouseScrollDelta.y;
@@ -27,15 +26,13 @@ public class CameraZoom : MonoBehaviour
         }
         if (Mathf.Abs(scrollAmount) > 0)
         {
-
-            Vector3 diffrence = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            transform.position = Vector3.Lerp(transform.position, (transform.position - diffrence * (-Mathf.Abs(scrollAmount)* mult)), speed);
+            Vector3 diffrence = _camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            transform.position = Vector3.Lerp(transform.position, transform.position - diffrence * (-Mathf.Abs(scrollAmount)* multiplier), speed);
             transform.position = new Vector3(transform.position.x, transform.position.y, -10);
 
-            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cam.orthographicSize + Mathf.Sign(scrollAmount)*mult, speed);
-            if (cam.orthographicSize <= 0)
-                cam.orthographicSize = 0.2f;
-
+            _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, _camera.orthographicSize + Mathf.Sign(scrollAmount)*multiplier, speed);
+            if (_camera.orthographicSize <= 0)
+                _camera.orthographicSize = 0.2f;
         }
     }
 }

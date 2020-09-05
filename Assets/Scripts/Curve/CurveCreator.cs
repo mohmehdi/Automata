@@ -5,7 +5,6 @@ public class CurveCreator : MonoBehaviour
 {
     [SerializeField] private GameObject curvePrefab=null;
 
-    public static int CurrentCurveHash;
     private GameObject _currentCreated;
     private void Start()
     {
@@ -18,7 +17,6 @@ public class CurveCreator : MonoBehaviour
     {
         _currentCreated = Instantiate(curvePrefab, Vector3.forward, Quaternion.identity);
         _currentCreated.GetComponent<Curve>().SetFrom();
-        CurrentCurveHash = _currentCreated.GetHashCode();
     }
     private void OnSetCurveOptions()
     {

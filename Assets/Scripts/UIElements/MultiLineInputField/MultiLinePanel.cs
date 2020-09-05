@@ -5,37 +5,37 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MultilineInputField : MonoBehaviour
+public class MultiLinePanel : MonoBehaviour
 {
-    private const int ITEM_HEIGHT = 35;
+    private const int ITEM_HEIGHT = 35; //maybe not best way but its effisient and clean a little and 35 is ok 
 
     [SerializeField] bool IsAcceptList = true;
-    [SerializeField] GameObject inputFieldPrefab=null;
+    [SerializeField] GameObject itemPrefab=null;
     [SerializeField] RectTransform addButtonRect=null;
+
     private ScrollRect _scrollView;
     private List<RectTransform> _itemsTransform;
-    public List<string> _inputs { get; private set; }
+    public List<string> inputs { get; private set; }
 
     public Action<int> OnDeleteItem;
 
     private void Start()
     {
-        _scrollView = GetComponentInChildren<ScrollRect>();
         _itemsTransform = new List<RectTransform>();
-        _inputs = new List<string>();
+        inputs = new List<string>();
+        _scrollView = GetComponentInChildren<ScrollRect>();
     }
 
     public void AddItem()
     {
-        var ItemRect = Instantiate(inputFieldPrefab,_scrollView.content).GetComponent<RectTransform>();
-        ItemRect.GetComponent<InputFieldIndex>().Initialize(_itemsTransform.Count,IsAcceptList);
-
-
+        var ItemRect = Instantiate(itemPrefab,_scrollView.content).GetComponent<RectTransform>();
+        ItemRect.GetComponent<InputFieldItem>().Initialize(_itemsTransform.Count,IsAcceptList); // here i set index used in item class
+        
         //seting new item position
         ItemRect.localPosition += Vector3.down * ITEM_HEIGHT * _itemsTransform.Count ;
         _itemsTransform.Add(ItemRect);
         string s = "";
-        _inputs.Add(s);
+        inputs.Add(s);
 
         //set addbutton transform
         addButtonRect.localPosition += Vector3.down * ITEM_HEIGHT;
@@ -44,27 +44,34 @@ public class MultilineInputField : MonoBehaviour
         _scrollView.content.sizeDelta = new Vector2(0,(_itemsTransform.Count + 1) * ITEM_HEIGHT);
     }
 
-
     public void DeleteItem(int index)
     {
-        Debug.Log($"Item  {index} Deleted ");
+        //Debug.Log($"Item  {index} Deleted ");
         Destroy(_itemsTransform[index].gameObject);
+        ShiftUpItems(index);
+        OnDeleteItem?.Invoke(index);
+    }
+
+    /// <summary>
+    ///shift every thin up from index to end of list and also addButton
+    /// </summary>
+    private void ShiftUpItems(int index)
+    {
         int i;
-        for (i = index; i < _itemsTransform.Count - 1; i++)
+        for (i = index; i < _itemsTransform.Count - 1; i++) 
         {
-            _inputs[i] = _inputs[i + 1];
+            inputs[i] = inputs[i + 1];
             _itemsTransform[i] = _itemsTransform[i + 1];
-            _itemsTransform[i].localPosition += Vector3.up * ITEM_HEIGHT ;
+            _itemsTransform[i].localPosition += Vector3.up * ITEM_HEIGHT;
         }
         _itemsTransform.RemoveAt(i);
-        _inputs.RemoveAt(i);
+        inputs.RemoveAt(i);
 
         addButtonRect.localPosition += Vector3.up * ITEM_HEIGHT;
-        OnDeleteItem?.Invoke(index);
     }
 
     public void ChangeInput(InputField input,int index)
     {
-        _inputs[index] = input.text;
+        inputs[index] = input.text;
     }
 }

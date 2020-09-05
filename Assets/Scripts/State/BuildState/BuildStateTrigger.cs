@@ -14,7 +14,7 @@ public class BuildStateTrigger : MonoBehaviour
             if(!flag && !go)
             BuildStateEvents.Instance.CreateState();
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Delete))
         {
             var detected = StateDetector.DetectStateObject(stateLayer);
             if (!detected) return;

@@ -40,12 +40,12 @@ public class AutomataManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftAlt))
-            d.CheckForComplete();
+            d.DeterministicCheck();
     }
 
     public void CheckStrings()
     {
-        d.CheckForComplete();
+        d.DeterministicCheck();
 
         List<string> vs = UIManager.Instance.GetInputs(true);
         for (int i = 0; i < vs.Count; i++)
@@ -88,9 +88,9 @@ public class AutomataManager : MonoBehaviour
     {
         return _machine.TryConnect(from, tag, to);
     }
-    public void DisConnectAll(int from,int to)
+    public void RemoveConnections(int from,int to)
     {
-         _machine.DisConnectAll(from,to);
+         _machine.RemoveConnections(from,to);
     }
 
 }

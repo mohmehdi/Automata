@@ -16,13 +16,11 @@ public class BuildStateEvents : MonoBehaviour
     {
         OnCreateState?.Invoke();
         AutomataManager.CurrentStateId++;
-       // Debug.Log("manager id"+AutomataManager.CurrentStateId);
     }
 
     public void DeleteState(int id)
     {
         OnDeleteState?.Invoke(id);
-       // Debug.Log("State << " + id + " >> Deleted");
     }
     public void ChangeStatus(int id,Status status)
     {

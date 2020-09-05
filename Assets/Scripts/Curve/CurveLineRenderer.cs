@@ -2,6 +2,10 @@
 
 public class CurveLineRenderer
 {
+    /// Using https://en.wikipedia.org/wiki/Bézier_curve with 5 points function
+    /// <returns>
+    /// position of bezier curve point between control points 1 and 5 
+    /// </returns>
     private static Vector3 BezierCurveFunction(Transform[] cpoints, float t)
     {     
         return (Mathf.Pow(1 - t, 4) * cpoints[0].position) +
@@ -14,7 +18,7 @@ public class CurveLineRenderer
     {
         if (points.Length<5) //we agreed on 5 control points. 2 for start end 3 for middle 
         {
-            Debug.Log("U Fuckin dumb come here u see why");
+            Debug.Log("U Fuckin dumb come here u see why"); // its a massage from past for me ignore it
             return;
         }
 

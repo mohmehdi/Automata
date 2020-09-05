@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 class DFA : Automata
 {
     private readonly Dictionary<int,DState> _states;
     private DState _start = null;
-    //private DState _start;
     public DFA()
     {
         _states = new Dictionary<int, DState>();
@@ -18,33 +16,20 @@ class DFA : Automata
         int id = AutomataManager.CurrentStateId;
         DState newState = new DState();
         _states.Add(id,newState);
-        //Debug.Log("State " + id + " added");
     }
     protected override void OnDeleteState(int id)
     {
         foreach (var s in _states)
         {
-            s.Value.DisConnectAll(_states[id]);
+            s.Value.RemoveConnectionsTo(_states[id]);
         }
         _states.Remove(id);
     }
-
-
-
     public override bool TryConnect(int from , string tag ,int to)
     {
-        bool res = _states[from].TryConnect(tag, _states[to]);
-        if (res)
-        {
-            Debug.Log(("Sucsesfuly connected : " + from + " with :" + tag + " to : " + to));
-        }
-        else
-        {
-            Debug.LogError(("Cannot connec : " + from + " with :" + tag + " to : " + to));
-        }
-        return res;
+        return _states[from].TryConnect(tag, _states[to]);
     }
-    public override void DisConnectAll(int from,int to)
+    public override void RemoveConnections(int from,int to)
     {
         if (!_states.ContainsKey(from))
         {
@@ -54,7 +39,7 @@ class DFA : Automata
         {
             Debug.Log("Not Found");
         }
-        _states[from].DisConnectAll(_states[to]);
+        _states[from].RemoveConnectionsTo(_states[to]);
     }    
     public override void ChangeStatus(int id, Status status)
     {
@@ -79,35 +64,41 @@ class DFA : Automata
     }
     public bool CheckInput(string inp)
     {
+        if( DeterministicCheck() == false) return false; //DFA needs a Start and must be deterministic depends on alphabet
+
         DState current = _start;
         for (int i = 0; i < inp.Length; i++)
         {
-            if (current == null) return false;// TODO :error here
+            if (current == null)
+            {
+                Debug.Log("Current Dosent exitst during InputCheck calculation");
+                return false;
+            }
             current = current.GetNextState(inp[i].ToString());
         }
         return current.Status == Status.FINAL ? true : current.Status == Status.STARTANDFINAL ? true : false;
     }
-    public void CheckForComplete()
+    public bool DeterministicCheck()
     {
+        if (!(_start != null))
+        {
+            Debug.LogWarning("DFA needs a 'Start' state");
+            return false;
+        }
 
-        bool hasStart = false;
         var alphabet = AutomataManager.inputAlphabet;
         foreach (var s in _states)
         {
-            if (s.Value.Status==Status.START)
-            {
-                hasStart = true;
-            }
             for (int i = 0; i < alphabet.Length; i++)
             {
                 if (!s.Value.ContainTag(alphabet[i].ToString()))
                 {
                     Debug.LogWarning("state :: " + s.Key + " :: doesnt contain :: " + alphabet[i]+" ::");
+                    return false;
                 }
             }
         }
-        if(!hasStart)
-        Debug.LogWarning("DFA needs a 'Start' state");
+        return true;
 
     }
 }

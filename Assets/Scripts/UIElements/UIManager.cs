@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    [SerializeField] private MultilineInputField MultiField_Accepts;
-    [SerializeField] private MultilineInputField MultiField_NotAccepts=null;
+
+    [SerializeField] private MultiLinePanel Acceptable=null;
+    [SerializeField] private MultiLinePanel NotAcceptable=null;
     [SerializeField] private InputField languageAlphabet = null;
     [SerializeField] private InputField machineAlphabet = null;
     [SerializeField] private Dropdown typeSelection = null;
@@ -23,7 +22,7 @@ public class UIManager : MonoBehaviour
         Instance = this;
         MousePosition m = new MousePosition();
     }
-    public List<string> GetInputs(bool isAcceptsList) => isAcceptsList ? MultiField_Accepts._inputs : MultiField_NotAccepts._inputs;
+    public List<string> GetInputs(bool isAcceptsList) => isAcceptsList ? Acceptable.inputs : NotAcceptable.inputs;
     public void SelectType()
     {
         AutomataManager.automataType = (AutomataType)typeSelection.value;

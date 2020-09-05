@@ -1,11 +1,10 @@
 ﻿using System;
 using UnityEditor;
 using UnityEngine;
-public class ControlPointMovement : MonoBehaviour
+public class CurveMiddleControlPoint : MonoBehaviour
 {
     [SerializeField] private GameObject controlPointsParent = null;
 
-    public static bool viewMode = false;
     private Vector3 _offset;
 
     private void Start()

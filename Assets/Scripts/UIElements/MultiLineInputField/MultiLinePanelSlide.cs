@@ -2,17 +2,17 @@
 using UnityEngine;
 
 
-public class MultiLineInputFieldSlide : MonoBehaviour
+public class MultiLinePanelSlide : MonoBehaviour
 {
     [SerializeField] private float speed = 1;
-    [SerializeField] RectTransform buttonPos=null; //position of Kesho button 
-    [SerializeField] RectTransform button=null;
+    [Tooltip("position in child that button will move with it")]
+    [SerializeField] RectTransform destenation=null;
+    [SerializeField] RectTransform slideButton=null;
     [SerializeField] private bool isOn = true;
     [SerializeField] KeyCode switchKey=KeyCode.None;
 
     private RectTransform _rectTransform;
-
-    private Coroutine slide;
+    private Coroutine _slideMove;
     private void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
@@ -26,9 +26,9 @@ public class MultiLineInputFieldSlide : MonoBehaviour
     }
     public void DoSlide()
     {
-        if (slide == null)
+        if (_slideMove == null)
         {
-            slide = StartCoroutine(SlideMove());
+            _slideMove = StartCoroutine(SlideMove());
         }
     }
     private IEnumerator SlideMove()
@@ -41,16 +41,16 @@ public class MultiLineInputFieldSlide : MonoBehaviour
             size += isOn ? -speed : speed;
             _rectTransform.localScale = new Vector3(size, 1, 1);
 
-            button.position = buttonPos.position;
+            slideButton.position = destenation.position;
             yield return null;
         }
 
         _rectTransform.localScale = isOn ? new Vector3(0, 1, 1) : new Vector3(1, 1, 1);
-        button.position = buttonPos.position;
+        slideButton.position = destenation.position;
 
         isOn = !isOn;
 
-        StopCoroutine(slide);
-        slide = null;
+        StopCoroutine(_slideMove);
+        _slideMove = null;
     }
 }

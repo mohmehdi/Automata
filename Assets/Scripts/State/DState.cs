@@ -9,7 +9,6 @@ public class DState
     public Status Status { get;  set; }
 
     private Dictionary<string,DState> _connections;    
-
     public DState()
     {
         _connections = new Dictionary<string, DState>();
@@ -33,7 +32,7 @@ public class DState
         _connections.Add(tag,to);
         return true;
     }
-    public void DisConnectAll(DState to)
+    public void RemoveConnectionsTo(DState to)
     {
         foreach (var item in _connections.Where(kvp => kvp.Value == to).ToList())
         {

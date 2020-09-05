@@ -9,12 +9,12 @@ public class StateObjectMovement : MonoBehaviour
 
     private void OnMouseDown()
     {
-        stateName.position = MousePosition.GetCamera().WorldToScreenPoint(transform.position);
         _offset = transform.position- MousePosition.GetMousePosition();
     }
 
     private void OnMouseDrag()
     {
         transform.position = MousePosition.GetMousePosition()+_offset;
+        stateName.position = MousePosition.GetCamera().WorldToScreenPoint(transform.position);
     }
 }

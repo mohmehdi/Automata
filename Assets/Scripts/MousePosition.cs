@@ -1,12 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 class MousePosition
 {
     public MousePosition()
     {
         camera = Camera.main;
     }
-
 
     private static Camera camera;
     public static Vector3 GetMousePosition()
