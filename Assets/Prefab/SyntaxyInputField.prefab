@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8619147139025660822}
   - component: {fileID: 1977545083863470606}
-  - component: {fileID: -2744948708649297976}
+  - component: {fileID: 1154129065089881519}
   - component: {fileID: 2766865872809918683}
   - component: {fileID: 553190364891193773}
   m_Layer: 5
@@ -128,7 +128,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726437417414031056}
   m_CullTransparentMesh: 0
---- !u!114 &-2744948708649297976
+--- !u!114 &1154129065089881519
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,12 +137,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1726437417414031056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 109c3c2f3d4db6b4080a532dd30db14d, type: 3}
+  m_Script: {fileID: 11500000, guid: 44ca7d2e28c44244abf7feb04488a891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correct: {r: 0, g: 1, b: 0.19785309, a: 0.050980393}
-  wrong: {r: 1, g: 0, b: 0.10714626, a: 0.050980393}
-  syntaxerror: {r: 0, g: 0.70077515, b: 1, a: 0.5019608}
+  correct: {r: 0, g: 1, b: 0.23313046, a: 0.050980393}
+  wrong: {r: 1, g: 0, b: 0.33131742, a: 0.050980393}
+  syntaxerror: {r: 0.12646852, g: 0.9245283, b: 0.8020124, a: 0.2}
 --- !u!114 &2766865872809918683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -2744948708649297976}
+      - m_Target: {fileID: 1154129065089881519}
         m_TargetAssemblyTypeName: SyntaxyInputField, Assembly-CSharp
         m_MethodName: CheckInput
         m_Mode: 1
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -2744948708649297976}
+      - m_Target: {fileID: 1154129065089881519}
         m_TargetAssemblyTypeName: SyntaxyInputField, Assembly-CSharp
         m_MethodName: ChangeFieldSize
         m_Mode: 1

@@ -65,7 +65,7 @@ class DFA : Automata
     public bool CheckInput(string inp)
     {
         if( DeterministicCheck() == false) return false; //DFA needs a Start and must be deterministic depends on alphabet
-
+        
         DState current = _start;
         for (int i = 0; i < inp.Length; i++)
         {
@@ -76,6 +76,9 @@ class DFA : Automata
             }
             current = current.GetNextState(inp[i].ToString());
         }
+        if (current == null)
+            return false;
+
         return current.Status == Status.FINAL ? true : current.Status == Status.STARTANDFINAL ? true : false;
     }
     public bool DeterministicCheck()

@@ -609,8 +609,8 @@ MonoBehaviour:
   - {fileID: 7596970689939151046}
   syntaxyInptField: {fileID: 1726437417414031056, guid: 51faaaa7b718a584c91d80e37ade81d7,
     type: 3}
-  line: {fileID: 418659986514552818}
-  direction: {fileID: 2437997889497301077}
+  helpersLine: {fileID: 418659986514552818}
+  arrowSprite: {fileID: 2437997889497301077}
 --- !u!114 &2321543684054137997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3854943672071557354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac34736db30893640a0d07e9e31a2ac1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ca817d08e262db4ab088490377dcf44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!120 &1773646938432823751
@@ -811,7 +811,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6856415561567582333}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 068654442215ff447a84a41a78a9df7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 08c0e4f7fffc24e47bf2d063304b81f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controlPointsParent: {fileID: 958501557001074882}

@@ -356,11 +356,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 85719734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be00161b4a1a1b49a28419bd61bc4c8, type: 3}
+  m_Script: {fileID: 11500000, guid: a47d258e0192abe479c5cd0355e456e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsAcceptList: 1
-  inputFieldPrefab: {fileID: 7407557996655326702, guid: 6818745ba59cc6a4abf069201ec26e67,
+  itemPrefab: {fileID: 7407557996655326702, guid: 6818745ba59cc6a4abf069201ec26e67,
     type: 3}
   addButtonRect: {fileID: 614965422}
 --- !u!114 &85719739
@@ -372,12 +372,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 85719734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 122568f6cf2a9e949a4847145c32fb83, type: 3}
+  m_Script: {fileID: 11500000, guid: 740d397cd8a3dc045bb10b7ed54594c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
-  buttonPos: {fileID: 271553330}
-  button: {fileID: 1590570153}
+  destenation: {fileID: 271553330}
+  slideButton: {fileID: 1590570153}
   isOn: 1
   switchKey: 9
 --- !u!1 &139577111
@@ -1214,9 +1214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53e2f6376fdc7a94d99cb27bea2aaa23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 519420031}
   speed: 0.02
-  mult: 0.5
+  multiplier: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -3482,8 +3481,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1511868977}
   m_HandleRect: {fileID: 1511868976}
   m_Direction: 2
-  m_Value: 1.0000043
-  m_Size: 0.9631328
+  m_Value: 1
+  m_Size: 0.9636623
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3631,7 +3630,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1233848454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6fefd242290a724282f5c23fe9760e4, type: 3}
+  m_Script: {fileID: 11500000, guid: d7207a285b7bbea40804fc5c928018b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stateLayer:
@@ -4262,8 +4261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a160b0c79e95dbe4b88a1a8c23f81da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MultiField_Accepts: {fileID: 85719738}
-  MultiField_NotAccepts: {fileID: 1851396483}
+  Acceptable: {fileID: 85719738}
+  NotAcceptable: {fileID: 1851396483}
   languageAlphabet: {fileID: 597354528}
   machineAlphabet: {fileID: 1988637356}
   typeSelection: {fileID: 2039348278}
@@ -4592,8 +4591,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1394735112}
   m_HandleRect: {fileID: 1394735111}
   m_Direction: 2
-  m_Value: 1.0000043
-  m_Size: 0.9631328
+  m_Value: 1
+  m_Size: 0.9636623
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5555,7 +5554,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1760627301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66951663dbacdd04884daf1c2e0eb8c4, type: 3}
+  m_Script: {fileID: 11500000, guid: eaef85be5551cce4096ac362d5627065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   firstStateID: {fileID: 0}
@@ -5611,11 +5610,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1851396481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be00161b4a1a1b49a28419bd61bc4c8, type: 3}
+  m_Script: {fileID: 11500000, guid: a47d258e0192abe479c5cd0355e456e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsAcceptList: 0
-  inputFieldPrefab: {fileID: 7407557996655326702, guid: 6818745ba59cc6a4abf069201ec26e67,
+  itemPrefab: {fileID: 7407557996655326702, guid: 6818745ba59cc6a4abf069201ec26e67,
     type: 3}
   addButtonRect: {fileID: 1339245304}
 --- !u!114 &1851396484
@@ -5665,12 +5664,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1851396481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 122568f6cf2a9e949a4847145c32fb83, type: 3}
+  m_Script: {fileID: 11500000, guid: 740d397cd8a3dc045bb10b7ed54594c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
-  buttonPos: {fileID: 728799639}
-  button: {fileID: 1721913620}
+  destenation: {fileID: 728799639}
+  slideButton: {fileID: 1721913620}
   isOn: 1
   switchKey: 9
 --- !u!1 &1882207810
@@ -5878,7 +5877,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1918536162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16b92fa3ac9c474a8fa2006166f804a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 245d71a6017ecb04bad5950eb17624eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   statesLayer:

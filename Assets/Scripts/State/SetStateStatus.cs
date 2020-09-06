@@ -9,7 +9,7 @@ public class SetStateStatus : MonoBehaviour
         var detectedObject = StateDetector.DetectStateObject(stateLayer);
         if (!detectedObject) return;
 
-        if (EventSystem.current.currentSelectedGameObject)return ;
+        if (EventSystem.current.currentSelectedGameObject)return ;//if a ui is selected
 
         int id=-1;
 

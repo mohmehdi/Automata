@@ -475,16 +475,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7407557996655326702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d622ff253196034f905be0f2bc2415a, type: 3}
+  m_Script: {fileID: 11500000, guid: 250d977fe07bb8743b2b9eddafac22bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 4247511666960745672}
   removeButton: {fileID: 8064009813794727739}
-  textField: {fileID: 3785750695958809124}
-  isOk: {r: 0, g: 1, b: 0.20677495, a: 1}
-  notOk: {r: 1, g: 0, b: 0.13899946, a: 1}
-  index: 0
-  isAcceptInput: 1
+  isOk: {r: 0, g: 1, b: 0.37633967, a: 1}
+  notOk: {r: 1, g: 0, b: 0.28190327, a: 1}
 --- !u!1 &8455245431902395230
 GameObject:
   m_ObjectHideFlags: 0

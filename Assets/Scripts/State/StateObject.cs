@@ -40,13 +40,21 @@ public class StateObject : MonoBehaviour
         if (status == Status.START || status == Status.STARTANDFINAL)
         {
             if (_status == Status.START)
+            {
                 _spriteRenderer.sprite = sprites[1];
+                _status = Status.NORMAL;
+            }
 
             if (_status == Status.STARTANDFINAL)
+            {
                 _spriteRenderer.sprite = sprites[2];
+                _status = Status.FINAL;
+            }
         }
 
         if (id != ID) return;
+        
+        _status = status;
 
         if (status == Status.NORMAL)
         _spriteRenderer.sprite = sprites[1];
