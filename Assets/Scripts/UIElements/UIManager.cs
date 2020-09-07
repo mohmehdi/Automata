@@ -23,10 +23,6 @@ public class UIManager : MonoBehaviour
         MousePosition m = new MousePosition();
     }
     public List<string> GetInputs(bool isAcceptsList) => isAcceptsList ? Acceptable.inputs : NotAcceptable.inputs;
-    public void SelectType()
-    {
-        AutomataManager.automataType = (AutomataType)typeSelection.value;
-    }
     private void SetStage(int stage)
     {
         typeSelection.gameObject.SetActive(0 == stage);
@@ -61,6 +57,11 @@ public class UIManager : MonoBehaviour
         }
         SetStage(_stage);
     }
+
+    public void SelectType()
+    {
+        AutomataManager.automataType = (AutomataType)typeSelection.value;
+    }
     /// <summary>
     /// used by Start Button to set alphabet
     /// </summary>
@@ -80,5 +81,9 @@ public class UIManager : MonoBehaviour
         SetStage(4);
         return _alphabet;
     }
-
+    public char[] GetMachineAlphabet()
+    {
+        SetStage(4);
+        return machineAlphabet.text.ToCharArray();
+    }
 }

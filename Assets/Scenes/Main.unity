@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7405714, g: 0.84, b: 0.23314282, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -731,8 +731,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1013215945}
-        m_TargetAssemblyTypeName: DefaultNamespace.AutomataManager, Assembly-CSharp
-        m_MethodName: setAlphabet
+        m_TargetAssemblyTypeName: AutomataManager, Assembly-CSharp
+        m_MethodName: Initialize
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1474,7 +1474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+  m_Color: {r: 0.7616899, g: 0.8018868, b: 0.15508187, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2370,7 +2370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8490566, g: 0.82067853, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3164,7 +3164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6816326, g: 0.7075472, b: 0.15686187, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3481,8 +3481,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1511868977}
   m_HandleRect: {fileID: 1511868976}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9636623
+  m_Value: 1.0000021
+  m_Size: 0.9631009
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4591,8 +4591,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1394735112}
   m_HandleRect: {fileID: 1394735111}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9636623
+  m_Value: 1.0000021
+  m_Size: 0.9631009
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6142,7 +6142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5138606, g: 0.5188679, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6426,7 +6426,7 @@ MonoBehaviour:
     m_Options:
     - m_Text: DFA
       m_Image: {fileID: 0}
-    - m_Text: NFA
+    - m_Text: DPDA
       m_Image: {fileID: 0}
     - m_Text: Turing
       m_Image: {fileID: 0}

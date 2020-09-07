@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum AutomataType
 {
-    dfa,nfa,pda
+    dfa,DPDA,turing
 }
 public class AutomataManager : MonoBehaviour
 {
@@ -18,44 +19,33 @@ public class AutomataManager : MonoBehaviour
 
     private List<Vector2Int> _connections;
     private Automata _machine;
-    DFA d;
-
     /// <summary>
     /// index of input string from two lists
     /// result of checking that string
     /// is that string from accept list of not
     /// </summary>
-    public Action<int,bool, bool> OnCheckInput;
+    public Action<int,bool, bool> OnInputChecked;
 
     private void Start()
     {
         _connections = new List<Vector2Int>();
         Instance = this;
         automataType = AutomataType.dfa;
-        _machine = new DFA();
-         d = (DFA)_machine;
 
         ConnectionEvents.Instance.OnSecondStateSelected += UpdateLocalConnections;
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-            d.DeterministicCheck();
     }
 
     public void CheckStrings()
     {
-        d.DeterministicCheck();
-
         List<string> vs = UIManager.Instance.GetInputs(true);
         for (int i = 0; i < vs.Count; i++)
         {
-            CheckInput(i, d.CheckInput(vs[i]), true);
+            ApplyInputCheck(i, _machine.CheckInput(vs[i]), true);
         }
         vs = UIManager.Instance.GetInputs(false);
         for (int i = 0; i < vs.Count; i++)
         {
-            CheckInput(i, d.CheckInput(vs[i]), false);
+            ApplyInputCheck(i, _machine.CheckInput(vs[i]), false);
             Debug.Log(vs[i]);
         }
     }
@@ -74,15 +64,33 @@ public class AutomataManager : MonoBehaviour
         }
         return true;
     }
-    public void CheckInput(int index,bool result,bool mustAccept)
+    public void ApplyInputCheck(int index,bool result,bool mustAccept)
     {
-        OnCheckInput?.Invoke(index,result, mustAccept);
+        OnInputChecked?.Invoke(index,result, mustAccept);
     }
 
-    public void setAlphabet()
+    public void Initialize()
     {
-        char[] alphabet = UIManager.Instance.GetLanguageAlphabet();
-        inputAlphabet = alphabet;
+        inputAlphabet = UIManager.Instance.GetLanguageAlphabet();
+        switch (automataType)
+        {
+            case AutomataType.dfa:
+                _machine = new DFA();
+                break;
+            case AutomataType.DPDA:
+                _machine = new DPDA();
+                machineAlphabet = UIManager.Instance.GetMachineAlphabet();
+                var z = new char[inputAlphabet.Length + machineAlphabet.Length];
+                inputAlphabet.CopyTo(z, 0);
+                machineAlphabet.CopyTo(z, inputAlphabet.Length);
+                machineAlphabet = z;
+                break;
+            case AutomataType.turing:
+                _machine = new Turing();
+                machineAlphabet = UIManager.Instance.GetMachineAlphabet();
+                break;
+        }
+
     }
     public bool TryConnect(int from , string tag , int to) 
     {

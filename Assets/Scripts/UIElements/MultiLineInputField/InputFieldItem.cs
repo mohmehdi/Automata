@@ -23,7 +23,7 @@ public class InputFieldItem : MonoBehaviour
 
         _parent.OnDeleteItem += ReduceIndex;
 
-        AutomataManager.Instance.OnCheckInput += Check;
+        AutomataManager.Instance.OnInputChecked += Check;
     }
     public void Initialize(int i , bool isAccept)
     {
@@ -46,7 +46,7 @@ public class InputFieldItem : MonoBehaviour
     }
     private void OnDestroy()
     {
-        AutomataManager.Instance.OnCheckInput -= Check;
+        AutomataManager.Instance.OnInputChecked -= Check;
         _parent.OnDeleteItem -= ReduceIndex;
     }
 }

@@ -2,67 +2,13 @@
 using UnityEngine;
 class DFA : Automata
 {
-    private readonly Dictionary<int,DState> _states;
-    private DState _start = null;
     public DFA()
     {
         _states = new Dictionary<int, DState>();
-        BuildStateEvents.Instance.OnCreateState += OnAddState;
-        BuildStateEvents.Instance.OnDeleteState += OnDeleteState;
-        BuildStateEvents.Instance.OnChangeStatus += ChangeStatus;
+        SubscribeEvents();
     }
-    protected override void OnAddState()
-    {
-        int id = AutomataManager.CurrentStateId;
-        DState newState = new DState();
-        _states.Add(id,newState);
-    }
-    protected override void OnDeleteState(int id)
-    {
-        foreach (var s in _states)
-        {
-            s.Value.RemoveConnectionsTo(_states[id]);
-        }
-        _states.Remove(id);
-    }
-    public override bool TryConnect(int from , string tag ,int to)
-    {
-        return _states[from].TryConnect(tag, _states[to]);
-    }
-    public override void RemoveConnections(int from,int to)
-    {
-        if (!_states.ContainsKey(from))
-        {
-            Debug.Log("Not Found");
-        }
-        if (!_states.ContainsKey(to))
-        {
-            Debug.Log("Not Found");
-        }
-        _states[from].RemoveConnectionsTo(_states[to]);
-    }    
-    public override void ChangeStatus(int id, Status status)
-    {
-        if (status == Status.START || status == Status.STARTANDFINAL)
-        {
-            _start = _states[id];
-            foreach (var s in _states)
-            {
-                if (s.Value.Status == Status.START)
-                {
-                    s.Value.Status = Status.NORMAL;
-                    break;
-                }
-                if (s.Value.Status == Status.STARTANDFINAL)
-                {
-                    s.Value.Status = Status.FINAL;
-                    break;
-                }
-            }
-        }
-        _states[id].Status = status;
-    }
-    public bool CheckInput(string inp)
+
+    public override bool CheckInput(string inp)
     {
         if( DeterministicCheck() == false) return false; //DFA needs a Start and must be deterministic depends on alphabet
         

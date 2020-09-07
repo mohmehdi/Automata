@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 
@@ -30,6 +31,13 @@ class SyntaxyInputField : MonoBehaviour
         ConnectionEvents.Instance.OnEditMode += OnActiveEditMode;
         BuildStateEvents.Instance.OnDeleteState += DestroyThisWhenStateDeleted;
 
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            _inputField.text += 'λ';
+        }
     }
 
     private void OnActiveEditMode(bool flag)
@@ -66,6 +74,10 @@ class SyntaxyInputField : MonoBehaviour
         if (_type == AutomataType.dfa)
         {
             inputCheck = new DFAInput();
+        }
+        else if (_type == AutomataType.DPDA)
+        {
+            inputCheck = new DPDAInput();
         }
         bool syntaxResult = inputCheck.SyntaxCheck(_inputField.text);
         Debug.Log("syntax result : "+syntaxResult);
