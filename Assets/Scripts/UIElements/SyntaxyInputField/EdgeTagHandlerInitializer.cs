@@ -1,9 +1,6 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-
-class SyntaxyInputFieldInitializer : MonoBehaviour
+class EdgeTagHandlerInitializer : MonoBehaviour
 {
     private RectTransform _dropDownTransform;
     public void Initialize(GameObject inputField)
@@ -19,7 +16,7 @@ class SyntaxyInputFieldInitializer : MonoBehaviour
     }
     public void SetInputFieldOptions(int from,int to)
     {
-        _dropDownTransform.GetComponent<SyntaxyInputField>().SetOptions(from, to);
+        _dropDownTransform.GetComponent<EdgeTagHandler>().SetOptions(from, to);
     }
     public void SetPosition(Vector2 position)
     {

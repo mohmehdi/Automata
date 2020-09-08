@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
-public class DPDAInput : IInputProcessor
+public class TripletTagProcessor : IInputProcessor
 {
     public List<string> GetTags(string s)
     {
@@ -10,11 +11,19 @@ public class DPDAInput : IInputProcessor
 
         foreach (var word in tags)
         {
+            if (word.Trim().Length == 0) continue;
             TagFormat t = new TagFormat();
             int step = 0;
             for (int i = 0; i < word.Length; i++)
             {
                 char ch = word[i];
+
+                if (ch == '$' && step ==0)
+                {
+                    t.input = ch;
+                    step++;
+                    continue;
+                }
 
                 if (!char.IsLetter(ch) && !char.IsDigit(ch)) continue;
 
@@ -44,14 +53,21 @@ public class DPDAInput : IInputProcessor
     public bool SyntaxCheck(string s)
     {
         string[] tags = s.Split(';');
-        int step = 0;
         foreach (var word in tags)
         {
+            if (word.Trim().Length == 0) continue;
+        int step = 0;
             for (int i = 0; i < word.Length; i++)
             {
                 char ch = word[i];
 
-                if (ch != 'λ')
+                if(step == 0 && ch == '$')
+                {
+                    step++;
+                    continue;
+                }
+
+                if (step !=0 && ch == 'λ')
                 {
                     step++;
                     continue;

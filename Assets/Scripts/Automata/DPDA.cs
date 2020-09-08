@@ -12,6 +12,7 @@ public class DPDA : Automata
 
     public override bool CheckInput(string input)
     {
+        input += "$";
         if (!DeterministicCheck()) return false;
 
         Stack<char> _stack = new Stack<char>();
@@ -30,9 +31,8 @@ public class DPDA : Automata
                     _stack.Pop();
                     for (int j = t.machineCommand.Length - 1; j >= 0; j--)
                     {
-                        if (t.machineCommand[i] == 'λ')
+                        if (t.machineCommand[j] == 'λ')
                         {
-                            _stack.Pop();
                             break;
                         }
                         _stack.Push(t.machineCommand[j]);
@@ -52,7 +52,7 @@ public class DPDA : Automata
 
     public bool DeterministicCheck()
     {
-        if (!(_start != null))
+        if (_start == null)
         {
             Debug.LogWarning("DPDA needs a 'Start' state");
             return false;

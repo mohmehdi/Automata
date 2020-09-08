@@ -13,14 +13,14 @@ public class Curve:MonoBehaviour
     [SerializeField] private LineRenderer helpersLine =null;
     [SerializeField] private Transform arrowSprite = null;
 
-    private SyntaxyInputFieldInitializer _inputFieldInit;
+    private EdgeTagHandlerInitializer _inputFieldInit;
     private LineRenderer _curve;
     private StateObject _fromID = null;
     private StateObject _toID = null;
 
     private void Start()
     {
-        _inputFieldInit = GetComponent<SyntaxyInputFieldInitializer>();
+        _inputFieldInit = GetComponent<EdgeTagHandlerInitializer>();
         _curve = GetComponent<LineRenderer>();
         for (int i = 0; i < control.Length; i++)
         {

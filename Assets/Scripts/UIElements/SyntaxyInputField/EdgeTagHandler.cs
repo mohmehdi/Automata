@@ -1,10 +1,8 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.PlayerLoop;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 
-class SyntaxyInputField : MonoBehaviour
+class EdgeTagHandler : MonoBehaviour
 {
     [SerializeField] private Color correct=Color.white;
     [SerializeField] private Color wrong=Color.white;
@@ -15,6 +13,7 @@ class SyntaxyInputField : MonoBehaviour
     private RectTransform _inputRect=null;
     private Vector2 _size;
     private AutomataType _type ;
+    private IInputProcessor _inputCheck = null;
     private void Start()
     {
         _type = AutomataManager.automataType;
@@ -22,6 +21,16 @@ class SyntaxyInputField : MonoBehaviour
         _inputRect = GetComponent<RectTransform>();
         _size = _inputRect.sizeDelta;
         _inputRect.localScale = Vector3.one;
+
+        if (_type == AutomataType.dfa)
+        {
+            _inputCheck = new SingleTagProcessor();
+        }
+        else if (_type == AutomataType.DPDA)
+        {
+            _inputCheck = new TripletTagProcessor();
+        }
+
         if (_inputField==null)
         {
             Debug.Log("Null refrence error");
@@ -34,7 +43,7 @@ class SyntaxyInputField : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             _inputField.text += 'λ';
         }
@@ -66,25 +75,16 @@ class SyntaxyInputField : MonoBehaviour
     {
         _inputRect.sizeDelta = new Vector2(_size.x, _size.y * _inputField.text.Split('\n').Length/2);
     }
-    public void CheckInput()
+    public void CheckEnteredEdgeTag()
     {
         bool connectionResult = true;
 
-        IInputProcessor inputCheck=null;
-        if (_type == AutomataType.dfa)
-        {
-            inputCheck = new DFAInput();
-        }
-        else if (_type == AutomataType.DPDA)
-        {
-            inputCheck = new DPDAInput();
-        }
-        bool syntaxResult = inputCheck.SyntaxCheck(_inputField.text);
+        bool syntaxResult = _inputCheck.SyntaxCheck(_inputField.text);
         Debug.Log("syntax result : "+syntaxResult);
         if (syntaxResult)
         {
             AutomataManager.Instance.RemoveConnections(_from, _to);
-            var tags = inputCheck.GetTags(_inputField.text);
+            var tags = _inputCheck.GetTags(_inputField.text);
             foreach (var t in tags)
             {
                bool res = AutomataManager.Instance.TryConnect(_from, t, _to);

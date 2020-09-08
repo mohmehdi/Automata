@@ -1,24 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-/// <summary>
-/// D is Short for Deterministic
-/// </summary>
-public class TagFormat
-{
-   public char input;
-   public char machine;
-   public string machineCommand;
-
-    public TagFormat()
-    {
-        machineCommand = "";
-    }
-    public string GetAllTogether()
-    {
-        return input + machine + machineCommand;
-    }
-}
 public class DState 
 {
     public Status Status { get;  set; }
@@ -82,7 +64,7 @@ public class DState
                 TagFormat t = new TagFormat();
                 t.input = s[0];
                 t.machine= s[1];
-                t.machineCommand= s.Substring(2,s.Length);
+                t.machineCommand= s.Substring(2);
                 tags.Add(t);
             }
         }

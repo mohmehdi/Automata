@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 2766865872809918683}
   - component: {fileID: 553190364891193773}
   m_Layer: 5
-  m_Name: SyntaxyInputField
+  m_Name: EdgeTagHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,12 +137,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1726437417414031056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44ca7d2e28c44244abf7feb04488a891, type: 3}
+  m_Script: {fileID: 11500000, guid: 0525916e50d5f0a41a53f614f992cb89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correct: {r: 0, g: 1, b: 0.23313046, a: 0.050980393}
-  wrong: {r: 1, g: 0, b: 0.33131742, a: 0.050980393}
-  syntaxerror: {r: 0.12646852, g: 0.9245283, b: 0.8020124, a: 0.2}
+  correct: {r: 0.1273585, g: 1, b: 0.22191569, a: 0.050980393}
+  wrong: {r: 1, g: 0, b: 0.08972883, a: 0.050980393}
+  syntaxerror: {r: 0.114142045, g: 0.8507905, b: 0.8962264, a: 0.2}
 --- !u!114 &2766865872809918683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: bc2007d0f4a65d948a5f5d7c9dbdcd27, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -227,8 +227,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1154129065089881519}
-        m_TargetAssemblyTypeName: SyntaxyInputField, Assembly-CSharp
-        m_MethodName: CheckInput
+        m_TargetAssemblyTypeName: EdgeTagHandler, Assembly-CSharp
+        m_MethodName: CheckEnteredEdgeTag
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

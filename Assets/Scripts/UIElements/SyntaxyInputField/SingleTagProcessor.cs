@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public class DFAInput : IInputProcessor
+public class SingleTagProcessor : IInputProcessor
 {
     public bool SyntaxCheck(string s)
     {
