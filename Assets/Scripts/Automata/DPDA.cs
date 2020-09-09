@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class DPDA : Automata
 {
@@ -24,22 +25,13 @@ public class DPDA : Automata
         {
             if (current == null) return false;
             var tagFormats = current.GetTags(input[i]);
-            foreach (var t in tagFormats)
+            foreach (var currentTagFormat in tagFormats.Where(t => t.machine == _stack.Peek()))
             {
-                if (t.machine == _stack.Peek())
-                {
-                    _stack.Pop();
-                    for (int j = t.machineCommand.Length - 1; j >= 0; j--)
-                    {
-                        if (t.machineCommand[j] == 'λ')
-                        {
-                            break;
-                        }
-                        _stack.Push(t.machineCommand[j]);
-                    }
-                    current = current.GetNextState(t.GetAllTogether());
-                    break;
-                }
+                _stack.Pop();
+                PushToStack(_stack, currentTagFormat);
+
+                current = current.GetNextState(currentTagFormat.GetAllTogether());
+                break;
             }
         }
         if (current!=null && (current.Status == Status.FINAL || current.Status == Status.STARTANDFINAL))
@@ -48,6 +40,18 @@ public class DPDA : Automata
         }
         return false;
 
+    }
+
+    private static void PushToStack(Stack<char> _stack, TagFormat t)
+    {
+        for (int j = t.machineCommand.Length - 1; j >= 0; j--)
+        {
+            if (t.machineCommand[j] == 'λ')
+            {
+                break;
+            }
+            _stack.Push(t.machineCommand[j]);
+        }
     }
 
     public bool DeterministicCheck()

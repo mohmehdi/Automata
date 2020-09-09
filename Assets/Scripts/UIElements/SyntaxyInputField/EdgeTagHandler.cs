@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -13,7 +14,7 @@ class EdgeTagHandler : MonoBehaviour
     private RectTransform _inputRect=null;
     private Vector2 _size;
     private AutomataType _type ;
-    private IInputProcessor _inputCheck = null;
+    private static IInputProcessor _inputCheck = null;
     private void Start()
     {
         _type = AutomataManager.automataType;
@@ -22,31 +23,22 @@ class EdgeTagHandler : MonoBehaviour
         _size = _inputRect.sizeDelta;
         _inputRect.localScale = Vector3.one;
 
-        if (_type == AutomataType.dfa)
+        if (_inputCheck == null)
         {
-            _inputCheck = new SingleTagProcessor();
-        }
-        else if (_type == AutomataType.DPDA)
-        {
-            _inputCheck = new TripletTagProcessor();
-        }
-
-        if (_inputField==null)
-        {
-            Debug.Log("Null refrence error");
+            if (_type == AutomataType.dfa)
+            {
+                _inputCheck = new SingleTagProcessor();
+            }
+            else if (_type == AutomataType.DPDA)
+            {
+                _inputCheck = new TripletTagProcessor();
+            }
         }
         gameObject.SetActive(false);
 
         ConnectionEvents.Instance.OnEditMode += OnActiveEditMode;
         BuildStateEvents.Instance.OnDeleteState += DestroyThisWhenStateDeleted;
 
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            _inputField.text += 'λ';
-        }
     }
 
     private void OnActiveEditMode(bool flag)
@@ -73,7 +65,11 @@ class EdgeTagHandler : MonoBehaviour
 
     public void ChangeFieldSize()
     {
-        _inputRect.sizeDelta = new Vector2(_size.x, _size.y * _inputField.text.Split('\n').Length/2);
+        _inputField.text.Replace('.', 'λ');
+        string[] lines = _inputField.text.Split('\n');
+        int max = lines.Max(str => str.Length);
+        max = Mathf.Clamp(max, 4, 20);
+        _inputRect.sizeDelta = new Vector2(_size.x* max, _size.y * lines.Length/2);
     }
     public void CheckEnteredEdgeTag()
     {
