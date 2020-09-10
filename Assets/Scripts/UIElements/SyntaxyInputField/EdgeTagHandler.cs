@@ -29,7 +29,7 @@ class EdgeTagHandler : MonoBehaviour
             {
                 _inputCheck = new SingleTagProcessor();
             }
-            else if (_type == AutomataType.DPDA)
+            else if (_type == AutomataType.DPDA || _type == AutomataType.Turing)
             {
                 _inputCheck = new TripletTagProcessor();
             }
@@ -65,9 +65,16 @@ class EdgeTagHandler : MonoBehaviour
 
     public void ChangeFieldSize()
     {
-        _inputField.text.Replace('.', 'λ');
+        if (_type == AutomataType.DPDA)
+        {
+            _inputField.text=_inputField.text.Replace('.', 'λ');
+        }
+        if (_type == AutomataType.Turing)
+        {
+            _inputField.text = _inputField.text.Replace('.', '□');
+        }
         string[] lines = _inputField.text.Split('\n');
-        int max = lines.Max(str => str.Length);
+        int max = lines.Max(str => str.Length)/2;
         max = Mathf.Clamp(max, 4, 20);
         _inputRect.sizeDelta = new Vector2(_size.x* max, _size.y * lines.Length/2);
     }

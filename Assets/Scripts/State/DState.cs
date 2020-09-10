@@ -29,15 +29,21 @@ public class DState
         if (AutomataManager.automataType == AutomataType.DPDA)
         {
             var allSameInputChar = GetTags(tag[0]);
-            foreach (var item in allSameInputChar)
+            foreach (var _ in allSameInputChar.Where(item => tag[1] == item.machine).Select(item => new { }))
             {
-                if (tag[1] == item.machine)
-                {
-                    return false;
-                }           
+                return false;
             }
         }
-
+        if (AutomataManager.automataType == AutomataType.Turing)
+        {
+            foreach (var item in _connections)
+            {
+                if (item.Key[0]==tag[0])
+                {
+                    return false;
+                }
+            }
+        }
         _connections.Add(tag, to);
         return true;
     }

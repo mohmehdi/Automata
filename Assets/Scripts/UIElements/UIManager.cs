@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject panel = null;
     [SerializeField] private GameObject startButton = null;
 
-    private char[] _alphabet;
     private int _stage = 0;
     private void Start()
     {
@@ -66,24 +65,24 @@ public class UIManager : MonoBehaviour
     /// used by Start Button to set alphabet
     /// </summary>
     /// <returns></returns>
-    public char[] GetLanguageAlphabet()
+    public string GetLanguageAlphabet()
     {
-        _alphabet = languageAlphabet.text.ToCharArray();
+        var output = languageAlphabet.text;
         string s = "";
-        for (int i = 0; i < _alphabet.Length; i++)
+        for (int i = 0; i < output.Length; i++)
         {
-            s+= _alphabet[i].ToString()+(i==_alphabet.Length-1? "" :  " , ");
+            s+= output[i].ToString()+(i==output.Length-1? "" :  " , ");
         }
         alphabetView.text = "Σ = { " + s +" } ";
         if (languageAlphabet.text.Length < 1)
-            return null;
+            return "";
 
         SetStage(4);
-        return _alphabet;
+        return output;
     }
-    public char[] GetMachineAlphabet()
+    public string GetMachineAlphabet()
     {
         SetStage(4);
-        return machineAlphabet.text.ToCharArray();
+        return machineAlphabet.text;
     }
 }

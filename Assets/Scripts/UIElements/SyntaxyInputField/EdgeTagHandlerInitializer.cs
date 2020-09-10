@@ -2,7 +2,7 @@
 
 class EdgeTagHandlerInitializer : MonoBehaviour
 {
-    private RectTransform _dropDownTransform;
+    private RectTransform _tagHandlerRect;
     public void Initialize(GameObject inputField)
     {
         CreateDropDowns(inputField);
@@ -12,15 +12,15 @@ class EdgeTagHandlerInitializer : MonoBehaviour
     {
         GameObject inp = Instantiate(inputField);
         inp.transform.SetParent(UIManager.Instance.transform);
-            _dropDownTransform = inp.GetComponent<RectTransform>();
+            _tagHandlerRect = inp.GetComponent<RectTransform>();
     }
     public void SetInputFieldOptions(int from,int to)
     {
-        _dropDownTransform.GetComponent<EdgeTagHandler>().SetOptions(from, to);
+        _tagHandlerRect.GetComponent<EdgeTagHandler>().SetOptions(from, to);
     }
     public void SetPosition(Vector2 position)
     {
-        _dropDownTransform.transform.position = MousePosition.GetCamera().WorldToScreenPoint(position);
+        _tagHandlerRect.transform.position = MousePosition.GetCamera().WorldToScreenPoint(position);
     }
 
 }

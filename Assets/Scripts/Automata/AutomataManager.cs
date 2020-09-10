@@ -6,7 +6,7 @@ using UnityEngine;
 
 public enum AutomataType
 {
-    dfa,DPDA,turing
+    dfa,DPDA,Turing
 }
 public class AutomataManager : MonoBehaviour
 {
@@ -71,26 +71,29 @@ public class AutomataManager : MonoBehaviour
 
     public void Initialize()
     {
-        inputAlphabet = UIManager.Instance.GetLanguageAlphabet();
+        string inp="";
         switch (automataType)
         {
+
             case AutomataType.dfa:
                 _machine = new DFA();
+                inputAlphabet = UIManager.Instance.GetLanguageAlphabet().ToCharArray();
                 break;
+        
             case AutomataType.DPDA:
                 _machine = new DPDA();
-                machineAlphabet = UIManager.Instance.GetMachineAlphabet();
-                var z = new char[inputAlphabet.Length + machineAlphabet.Length];
-                inputAlphabet.CopyTo(z, 0);
-                machineAlphabet.CopyTo(z, inputAlphabet.Length);
-                machineAlphabet = z;
+                inp = UIManager.Instance.GetLanguageAlphabet();
+                inputAlphabet = (inp + "$").ToCharArray();
+                machineAlphabet = (UIManager.Instance.GetMachineAlphabet()+ inp + "zZλ").ToCharArray();
                 break;
-            case AutomataType.turing:
+
+            case AutomataType.Turing:
                 _machine = new Turing();
-                machineAlphabet = UIManager.Instance.GetMachineAlphabet();
+                inp = UIManager.Instance.GetLanguageAlphabet()+ UIManager.Instance.GetMachineAlphabet()+"□";
+                inputAlphabet = inp.ToCharArray();
+                machineAlphabet = inputAlphabet;
                 break;
         }
-
     }
     public bool TryConnect(int from , string tag , int to) 
     {

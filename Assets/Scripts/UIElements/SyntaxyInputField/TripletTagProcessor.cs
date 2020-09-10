@@ -1,7 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Rendering;
+
 public class TripletTagProcessor : IInputProcessor
 {
+    private AutomataType _automataType;
+
+
     public List<string> GetTags(string s)
     {
         List<string> output = new List<string>();
@@ -22,11 +27,43 @@ public class TripletTagProcessor : IInputProcessor
         foreach (var word in tags)
         {
             if (word.Trim().Length == 0) continue;
-
-            if(!CheckCurrentWord(word))return false;
+            if (!CheckCurrentWord(word)) return false;
         }
         return true;
     }
+
+    private bool CheckCurrentWord(string word)
+    {
+        int step = 0;
+        for (int i = 0; i < word.Length; i++)
+        {
+            char ch = word[i];
+            if(step<2 && ch == '□' && AutomataManager.automataType == AutomataType.Turing)
+            {
+                step++;
+                continue;
+            }
+            if (!char.IsLetterOrDigit(ch)) continue;
+
+            if (step == 0 && !AutomataManager.inputAlphabet.Contains(ch)) return false;
+
+            if(step ==2 && AutomataManager.automataType == AutomataType.Turing)
+            {
+                if (char.ToLower(ch) != 'l'  && char.ToLower(ch) != 'r')
+                {
+                    return false;
+                }
+            }
+            else if (step > 0 && !AutomataManager.machineAlphabet.Contains(ch)) return false;
+
+            step++;
+        }
+        if (step > 3 && AutomataManager.automataType == AutomataType.Turing) return false;
+        if (step < 3) return false;
+
+        return true;
+    }
+
     private TagFormat GetCurrentTagFormat(string word)
     {
         TagFormat t = new TagFormat();
@@ -35,14 +72,21 @@ public class TripletTagProcessor : IInputProcessor
         {
             char ch = word[i];
 
-            if (ch == '$' && step == 0)
+            if (ch == '$' && step == 0 && AutomataManager.automataType == AutomataType.DPDA)
             {
                 t.input = ch;
                 step++;
                 continue;
             }
 
-            if (!char.IsLetter(ch) && !char.IsDigit(ch)) continue;
+            if (step < 2 && ch == '□' && AutomataManager.automataType == AutomataType.Turing)
+            {
+                t.input = ch;
+                step++;
+                continue;
+            }
+
+            if (!char.IsLetterOrDigit(ch)) continue;
 
             if (step == 0)
             {
@@ -62,35 +106,5 @@ public class TripletTagProcessor : IInputProcessor
             step++;
         }
         return t;
-    }
-    private bool CheckCurrentWord(string word)
-    {
-        int step = 0;
-        for (int i = 0; i < word.Length; i++)
-        {
-            char ch = word[i];
-
-            if (step == 0 && ch == '$')
-            {
-                step++;
-                continue;
-            }
-
-            if (step != 0 && ch == 'λ')
-            {
-                step++;
-                continue;
-            }
-            if (!char.IsLetter(ch) && !char.IsDigit(ch)) continue;
-
-            if (step == 0 && !AutomataManager.inputAlphabet.Contains(ch)) return false;
-
-            if (step > 0 && !AutomataManager.machineAlphabet.Contains(ch)) return false;
-
-            step++;
-        }
-        if (step < 3) return false;
-
-        return true;
     }
 }

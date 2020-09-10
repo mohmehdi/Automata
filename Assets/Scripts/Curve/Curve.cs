@@ -41,7 +41,8 @@ public class Curve:MonoBehaviour
         }
         else
         {
-            _inputFieldInit.SetPosition(control[2].position);
+            Vector3 offcet = (control[2].position - control[0].position).normalized+ (control[2].position - control[4].position).normalized;
+            _inputFieldInit.SetPosition(control[2].position+ (offcet.normalized*0.5f));
         }
         RenderCurve();
 
