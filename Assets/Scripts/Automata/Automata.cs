@@ -4,12 +4,15 @@ public abstract class Automata
 {
     protected  Dictionary<int,DState> _states;
     protected DState _start = null;
-   // protected abstract void OnAddState();
+    public bool IsAnswerReady { get; set; }
+    public bool Result { get; set; }
+
+    // protected abstract void OnAddState();
     //protected abstract void OnDeleteState(int id);
     //public abstract bool TryConnect(int from, string tag, int to);
     //public abstract void RemoveConnections(int from,int to);
     //public abstract void ChangeStatus(int id, Status status);
-    public abstract bool CheckInput(string input);
+    public abstract void StartCheckingInput(string input);
 
     protected void SubscribeEvents()
     {

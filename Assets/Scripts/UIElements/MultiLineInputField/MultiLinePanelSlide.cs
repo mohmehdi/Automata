@@ -49,8 +49,6 @@ public class MultiLinePanelSlide : MonoBehaviour
         slideButton.position = destenation.position;
 
         isOn = !isOn;
-
-        StopCoroutine(_slideMove);
         _slideMove = null;
     }
 }

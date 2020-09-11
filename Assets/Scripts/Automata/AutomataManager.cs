@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,6 +16,7 @@ public class AutomataManager : MonoBehaviour
     public static char[] machineAlphabet;
     public static int CurrentStateId;
 
+    private InputStringCheck _inputChecker;
     private List<Vector2Int> _connections;
     private Automata _machine;
     /// <summary>
@@ -28,26 +28,20 @@ public class AutomataManager : MonoBehaviour
 
     private void Start()
     {
-        _connections = new List<Vector2Int>();
         Instance = this;
+        _connections = new List<Vector2Int>();
         automataType = AutomataType.dfa;
+
+        _inputChecker = GetComponent<InputStringCheck>();
 
         ConnectionEvents.Instance.OnSecondStateSelected += UpdateLocalConnections;
     }
 
     public void CheckStrings()
     {
-        List<string> vs = UIManager.Instance.GetInputs(true);
-        for (int i = 0; i < vs.Count; i++)
-        {
-            ApplyInputCheck(i, _machine.CheckInput(vs[i]), true);
-        }
-        vs = UIManager.Instance.GetInputs(false);
-        for (int i = 0; i < vs.Count; i++)
-        {
-            ApplyInputCheck(i, _machine.CheckInput(vs[i]), false);
-            Debug.Log(vs[i]);
-        }
+        var must = UIManager.Instance.GetInputs(true);
+        var mustNot = UIManager.Instance.GetInputs(false);
+        _inputChecker.StartCheck(must, mustNot, _machine);
     }
     private void UpdateLocalConnections()
     {
@@ -88,6 +82,7 @@ public class AutomataManager : MonoBehaviour
                 break;
 
             case AutomataType.Turing:
+                gameObject.AddComponent<TuringHelper>();
                 _machine = new Turing();
                 inp = UIManager.Instance.GetLanguageAlphabet()+ UIManager.Instance.GetMachineAlphabet()+"□";
                 inputAlphabet = inp.ToCharArray();

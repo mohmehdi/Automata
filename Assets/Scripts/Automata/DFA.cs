@@ -6,9 +6,15 @@ class DFA : Automata
     {
         _states = new Dictionary<int, DState>();
         SubscribeEvents();
+        IsAnswerReady = false;
     }
-
-    public override bool CheckInput(string inp)
+    public override void StartCheckingInput(string input)
+    {
+        IsAnswerReady = false;
+        Result = CheckInput(input);
+        IsAnswerReady = true;
+    }
+    public  bool CheckInput(string inp)
     {
         if( DeterministicCheck() == false) return false; //DFA needs a Start and must be deterministic depends on alphabet
         
@@ -48,6 +54,5 @@ class DFA : Automata
             }
         }
         return true;
-
     }
 }

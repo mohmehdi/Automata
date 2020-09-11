@@ -9,9 +9,16 @@ public class DPDA : Automata
     {
         _states = new Dictionary<int, DState>();
         SubscribeEvents();
+        IsAnswerReady = false;
     }
-
-    public override bool CheckInput(string input)
+    public override void StartCheckingInput(string input)
+    {
+        IsAnswerReady = false;
+        Result = CheckInput(input);
+        IsAnswerReady = true;
+    }
+    
+    public bool CheckInput(string input)
     {
         input += "$";
         if (!DeterministicCheck()) return false;
@@ -27,7 +34,9 @@ public class DPDA : Automata
             var tagFormats = current.GetTags(input[i]);
             foreach (var currentTagFormat in tagFormats.Where(t => t.machine == _stack.Peek()))
             {
+                if (_stack.Peek() != 'λ')
                 _stack.Pop();
+
                 PushToStack(_stack, currentTagFormat);
 
                 current = current.GetNextState(currentTagFormat.GetAllTogether());

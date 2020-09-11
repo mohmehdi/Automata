@@ -2991,6 +2991,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1013215946}
   - component: {fileID: 1013215945}
+  - component: {fileID: 1013215947}
   m_Layer: 0
   m_Name: AutomataManager
   m_TagString: Untagged
@@ -3024,6 +3025,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1013215947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013215944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d29a7f6eee1734b8390a4e75eadb79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1021873382
 GameObject:
   m_ObjectHideFlags: 0
@@ -3481,8 +3494,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1511868977}
   m_HandleRect: {fileID: 1511868976}
   m_Direction: 2
-  m_Value: 1.0000021
-  m_Size: 0.9631009
+  m_Value: 1.0000023
+  m_Size: 0.9647817
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4591,8 +4604,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1394735112}
   m_HandleRect: {fileID: 1394735111}
   m_Direction: 2
-  m_Value: 1.0000021
-  m_Size: 0.9631009
+  m_Value: 1.0000023
+  m_Size: 0.9647817
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
