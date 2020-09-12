@@ -1,0 +1,13 @@
+class fields:
+1- const values
+2- static members
+3- Serializedfields
+4- public members
+5- private members (starts with ' _ ' )
+6- Events
+..................................................
+In Start method:
+1-setting members values
+2-geting needed components
+3-checking null values
+4-registering for events

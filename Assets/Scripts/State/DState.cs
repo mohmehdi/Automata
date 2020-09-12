@@ -74,6 +74,15 @@ public class DState
                 tags.Add(t);
             }
         }
+        if (tags.Count == 0) return null;
         return tags;
+    }
+    public bool IsFinal()
+    {
+        if ((Status == Status.FINAL || Status == Status.STARTANDFINAL))
+        {
+            return true;
+        }
+        return false;
     }
 }

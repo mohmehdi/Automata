@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class Automata
 {
@@ -13,6 +14,10 @@ public abstract class Automata
     //public abstract void RemoveConnections(int from,int to);
     //public abstract void ChangeStatus(int id, Status status);
     public abstract void StartCheckingInput(string input);
+    public virtual void StopChechingInput()
+    {
+        Debug.Log("Base class StopChecking");
+    }
 
     protected void SubscribeEvents()
     {

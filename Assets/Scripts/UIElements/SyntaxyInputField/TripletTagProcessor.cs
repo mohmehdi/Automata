@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.Rendering;
+using UnityEngine;
 
 public class TripletTagProcessor : IInputProcessor
 {
@@ -81,7 +81,10 @@ public class TripletTagProcessor : IInputProcessor
 
             if (step < 2 && ch == '□' && AutomataManager.automataType == AutomataType.Turing)
             {
-                t.input = ch;
+                if (step == 0)
+                    t.input = ch;
+                if (step == 1)
+                    t.machine = ch;
                 step++;
                 continue;
             }

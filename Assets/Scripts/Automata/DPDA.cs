@@ -35,7 +35,7 @@ public class DPDA : Automata
             foreach (var currentTagFormat in tagFormats.Where(t => t.machine == _stack.Peek()))
             {
                 if (_stack.Peek() != 'λ')
-                _stack.Pop();
+                    _stack.Pop();
 
                 PushToStack(_stack, currentTagFormat);
 
@@ -43,13 +43,11 @@ public class DPDA : Automata
                 break;
             }
         }
-        if (current!=null && (current.Status == Status.FINAL || current.Status == Status.STARTANDFINAL))
-        {
-            return true;
-        }
-        return false;
+        return current.IsFinal();
 
     }
+
+
 
     private static void PushToStack(Stack<char> _stack, TagFormat t)
     {

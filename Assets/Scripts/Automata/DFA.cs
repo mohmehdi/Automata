@@ -31,7 +31,7 @@ class DFA : Automata
         if (current == null)
             return false;
 
-        return current.Status == Status.FINAL ? true : current.Status == Status.STARTANDFINAL ? true : false;
+        return current.IsFinal();
     }
     public bool DeterministicCheck()
     {
