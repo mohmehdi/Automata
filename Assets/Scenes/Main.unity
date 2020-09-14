@@ -379,7 +379,7 @@ MonoBehaviour:
   destenation: {fileID: 271553330}
   slideButton: {fileID: 1590570153}
   isOn: 1
-  switchKey: 9
+  switchKey: 306
 --- !u!1 &139577111
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,7 +1858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8470589, g: 0.9607844, b: 0.26666668, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5684,7 +5684,7 @@ MonoBehaviour:
   destenation: {fileID: 728799639}
   slideButton: {fileID: 1721913620}
   isOn: 1
-  switchKey: 9
+  switchKey: 306
 --- !u!1 &1882207810
 GameObject:
   m_ObjectHideFlags: 0
@@ -5896,7 +5896,7 @@ MonoBehaviour:
   statesLayer:
     serializedVersion: 2
     m_Bits: 256
-  viewKey: 304
+  viewKey: 9
 --- !u!1 &1946058938
 GameObject:
   m_ObjectHideFlags: 0
@@ -6323,7 +6323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8470589, g: 0.9607844, b: 0.26666668, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

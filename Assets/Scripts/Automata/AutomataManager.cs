@@ -76,9 +76,9 @@ public class AutomataManager : MonoBehaviour
         
             case AutomataType.DPDA:
                 _machine = new DPDA();
-                inp = UIManager.Instance.GetLanguageAlphabet();
+                inp = UIManager.Instance.GetLanguageAlphabet() + "λ";
                 inputAlphabet = (inp + "$").ToCharArray();
-                machineAlphabet = (UIManager.Instance.GetMachineAlphabet()+ inp + "zZλ").ToCharArray();
+                machineAlphabet = (UIManager.Instance.GetMachineAlphabet()+ inp + "zZ").ToCharArray();
                 break;
 
             case AutomataType.Turing:

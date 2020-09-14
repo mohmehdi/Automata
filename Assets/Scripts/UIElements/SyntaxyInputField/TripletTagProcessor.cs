@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class TripletTagProcessor : IInputProcessor
 {
-    private AutomataType _automataType;
-
-
     public List<string> GetTags(string s)
     {
         List<string> output = new List<string>();
@@ -39,6 +36,11 @@ public class TripletTagProcessor : IInputProcessor
         {
             char ch = word[i];
             if(step<2 && ch == '□' && AutomataManager.automataType == AutomataType.Turing)
+            {
+                step++;
+                continue;
+            }
+            if (step == 0 && ch == '$' && AutomataManager.automataType == AutomataType.DPDA)
             {
                 step++;
                 continue;

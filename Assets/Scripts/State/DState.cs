@@ -29,8 +29,10 @@ public class DState
         if (AutomataManager.automataType == AutomataType.DPDA)
         {
             var allSameInputChar = GetTags(tag[0]);
-            foreach (var _ in allSameInputChar.Where(item => tag[1] == item.machine).Select(item => new { }))
+            if(allSameInputChar != null)
+            foreach (var item in allSameInputChar)
             {
+                if(item.machine == tag[1])
                 return false;
             }
         }
@@ -84,5 +86,9 @@ public class DState
             return true;
         }
         return false;
+    }
+    public int GetNumberOfConnections()
+    {
+        return _connections.Count;
     }
 }
